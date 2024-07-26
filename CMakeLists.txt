@@ -16,8 +16,6 @@ file(GLOB SOURCES
 	Lawn/*.cpp
 	Lawn/Widget/*.cpp
 	Lawn/System/*.cpp
-	ImageLib/*.cpp
-	PakLib/*.cpp
 	SexyAppFramework/LawnProject.rc
 )
 
