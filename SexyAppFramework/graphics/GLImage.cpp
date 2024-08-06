@@ -13,9 +13,9 @@ GLImage::GLImage() : MemoryImage(gSexyAppBase)
 	mGLInterface->AddGLImage(this);
 }
 
-GLImage::GLImage(GLInterface *theGLInterface) : MemoryImage(gSexyAppBase)
+GLImage::GLImage(GLInterface *theGLInterface) : MemoryImage(theGLInterface->mApp)
 {
-	mGLInterface = gSexyAppBase->mGLInterface;
+	mGLInterface = theGLInterface;
 	mGLInterface->AddGLImage(this);
 }
 
@@ -31,7 +31,8 @@ bool GLImage::Check3D(GLImage *theImage)
 
 bool GLImage::Check3D(Image *theImage)
 {
-	return true;
+	GLImage *anImage = dynamic_cast<GLImage*>(theImage);
+	return anImage != 0;
 }
 
 bool GLImage::PolyFill3D(const Point theVertices[], int theNumVertices, const Rect *theClipRect, const Color &theColor, int theDrawMode, int tx, int ty)
