@@ -6279,6 +6279,7 @@ void SexyAppBase::Init()
 	InitPropertiesHook();
 	ReadFromRegistry();	
 
+	/*
 	if (CheckForVista())
 	{
 		HMODULE aMod;
@@ -6305,6 +6306,11 @@ void SexyAppBase::Init()
 			FreeLibrary(aMod);
 		}
 	}
+	*/
+	char aPath[MAX_PATH];
+	getcwd(aPath, MAX_PATH);
+	strcat(aPath, "/savedata/");
+	SetAppDataFolder(aPath);
 	
 	if (!mCmdLineParsed)
 		DoParseCmdLine();
