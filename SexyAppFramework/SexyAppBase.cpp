@@ -1589,23 +1589,23 @@ bool SexyAppBase::RegistryWrite(const std::string& theValueName, ulong theType, 
 
 bool SexyAppBase::RegistryWriteString(const std::string& theValueName, const std::string& theString)
 {
-	return RegistryWrite(theValueName, REG_SZ, (uchar*) theString.c_str(), theString.length());
+	return RegistryWrite(theValueName, regemu::REGEMU_SZ, (uchar*) theString.c_str(), theString.length());
 }
 
 bool SexyAppBase::RegistryWriteInteger(const std::string& theValueName, int theValue)
 {
-	return RegistryWrite(theValueName, REG_DWORD, (uchar*) &theValue, sizeof(int));
+	return RegistryWrite(theValueName, regemu::REGEMU_DWORD, (uchar*) &theValue, sizeof(int));
 }
 
 bool SexyAppBase::RegistryWriteBoolean(const std::string& theValueName, bool theValue)
 {
 	int aValue = theValue ? 1 : 0;
-	return RegistryWrite(theValueName, REG_DWORD, (uchar*) &aValue, sizeof(int));
+	return RegistryWrite(theValueName, regemu::REGEMU_DWORD, (uchar*) &aValue, sizeof(int));
 }
 
 bool SexyAppBase::RegistryWriteData(const std::string& theValueName, const uchar* theValue, ulong theLength)
 {
-	return RegistryWrite(theValueName, REG_BINARY, (uchar*) theValue, theLength);
+	return RegistryWrite(theValueName, regemu::REGEMU_BINARY, (uchar*) theValue, theLength);
 }
 
 void SexyAppBase::WriteToRegistry()
@@ -1908,7 +1908,7 @@ bool SexyAppBase::RegistryReadString(const std::string& theKey, std::string* the
 	if (!RegistryRead(theKey, &aType, (uchar*) aStr, &aLen))
 		return false;
 
-	if (aType != REG_SZ)
+	if (aType != regemu::REGEMU_SZ)
 		return false;
 
 	aStr[aLen] = 0;
@@ -1925,7 +1925,7 @@ bool SexyAppBase::RegistryReadInteger(const std::string& theKey, int* theValue)
 	if (!RegistryRead(theKey, &aType, (uchar*) &aLong, &aLen))
 		return false;
 
-	if (aType != REG_DWORD)
+	if (aType != regemu::REGEMU_DWORD)
 		return false;
 
 	*theValue = aLong;
@@ -1948,7 +1948,7 @@ bool SexyAppBase::RegistryReadData(const std::string& theKey, uchar* theValue, u
 	if (!RegistryRead(theKey, &aType, (uchar*) theValue, theLength))
 		return false;
 
-	if (aType != REG_BINARY)
+	if (aType != regemu::REGEMU_BINARY)
 		return false;
 	
 	return true;
