@@ -101,13 +101,13 @@ void TodLogString(const char* theMsg)
 	FILE* f = fopen(gLogFileName, "a");
 	if (f == nullptr)
 	{
-		fprintf(stderr, _S("Failed to open log file\n"));
+		fprintf(stderr, __S("Failed to open log file\n"));
 		return;
 	}
 
 	if (fwrite(theMsg, strlen(theMsg), 1, f) != 1)
 	{
-		fprintf(stderr, _S("Failed to write to log file\n"));
+		fprintf(stderr, __S("Failed to write to log file\n"));
 	}
 
 	fclose(f);

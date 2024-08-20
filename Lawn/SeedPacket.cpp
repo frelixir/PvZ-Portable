@@ -543,16 +543,16 @@ void DrawSeedPacket(Graphics* g, float x, float y, SeedType theSeedType, SeedTyp
 		{
 			if (theUseCurrentCost)
 			{
-				aCostStr = StrFormat(_S("%d"), gLawnApp->mBoard->GetCurrentPlantCost(theSeedType, theImitaterType));
+				aCostStr = StrFormat(__S("%d"), gLawnApp->mBoard->GetCurrentPlantCost(theSeedType, theImitaterType));
 			}
 			else
 			{
-				aCostStr = StrFormat(_S("%d+"), Plant::GetCost(theSeedType, theImitaterType));
+				aCostStr = StrFormat(__S("%d+"), Plant::GetCost(theSeedType, theImitaterType));
 			}
 		}
 		else
 		{
-			aCostStr = StrFormat(_S("%d"), Plant::GetCost(theSeedType, theImitaterType));
+			aCostStr = StrFormat(__S("%d"), Plant::GetCost(theSeedType, theImitaterType));
 		}
 
 		_Font* aTextFont = Sexy::FONT_PICO129;
@@ -714,7 +714,7 @@ void SeedPacket::MouseDown(int x, int y, int theClickCount)
 	{
 		if (!mBoard->mAdvice->IsBeingDisplayed())
 		{
-			mBoard->DisplayAdvice(_S("[ADVICE_SLOT_MACHINE_PULL]"), MessageStyle::MESSAGE_STYLE_HINT_TALL_FAST, AdviceType::ADVICE_NONE);
+			mBoard->DisplayAdvice(__S("[ADVICE_SLOT_MACHINE_PULL]"), MessageStyle::MESSAGE_STYLE_HINT_TALL_FAST, AdviceType::ADVICE_NONE);
 		}
 		mBoard->mChallenge->mSlotMachineRollCount = std::min(mBoard->mChallenge->mSlotMachineRollCount, 2);
 		return;
@@ -733,7 +733,7 @@ void SeedPacket::MouseDown(int x, int y, int theClickCount)
 			mApp->PlaySample(SOUND_BUZZER);
 			if (mApp->IsFirstTimeAdventureMode() && mBoard->mLevel == 1 && mBoard->mHelpDisplayed[(int)AdviceType::ADVICE_CLICK_ON_SUN])
 			{
-				mBoard->DisplayAdvice(_S("[ADVICE_SEED_REFRESH]"), MessageStyle::MESSAGE_STYLE_TUTORIAL_LEVEL1, AdviceType::ADVICE_SEED_REFRESH);
+				mBoard->DisplayAdvice(__S("[ADVICE_SEED_REFRESH]"), MessageStyle::MESSAGE_STYLE_TUTORIAL_LEVEL1, AdviceType::ADVICE_SEED_REFRESH);
 			}
 			return;
 		}
@@ -745,7 +745,7 @@ void SeedPacket::MouseDown(int x, int y, int theClickCount)
 			mBoard->mOutOfMoneyCounter = 70;
 			if (mApp->IsFirstTimeAdventureMode() && mBoard->mLevel == 1 && mBoard->mHelpDisplayed[(int)AdviceType::ADVICE_CLICK_ON_SUN])
 			{
-				mBoard->DisplayAdvice(_S("[ADVICE_CANT_AFFORD_PLANT]"), MessageStyle::MESSAGE_STYLE_TUTORIAL_LEVEL1, AdviceType::ADVICE_CANT_AFFORD_PLANT);
+				mBoard->DisplayAdvice(__S("[ADVICE_CANT_AFFORD_PLANT]"), MessageStyle::MESSAGE_STYLE_TUTORIAL_LEVEL1, AdviceType::ADVICE_CANT_AFFORD_PLANT);
 			}
 			return;
 		}
@@ -755,35 +755,35 @@ void SeedPacket::MouseDown(int x, int y, int theClickCount)
 			mApp->PlaySample(SOUND_BUZZER);
 			if (aUseSeedType == SeedType::SEED_GATLINGPEA)
 			{
-				mBoard->DisplayAdvice(_S("[ADVICE_PLANT_NEEDS_REPEATER]"), MessageStyle::MESSAGE_STYLE_HINT_LONG, AdviceType::ADVICE_PLANT_NEEDS_REPEATER);
+				mBoard->DisplayAdvice(__S("[ADVICE_PLANT_NEEDS_REPEATER]"), MessageStyle::MESSAGE_STYLE_HINT_LONG, AdviceType::ADVICE_PLANT_NEEDS_REPEATER);
 			}
 			else if (aUseSeedType == SeedType::SEED_WINTERMELON)
 			{
-				mBoard->DisplayAdvice(_S("[ADVICE_PLANT_NEEDS_MELONPULT]"), MessageStyle::MESSAGE_STYLE_HINT_LONG, AdviceType::ADVICE_PLANT_NEEDS_MELONPULT);
+				mBoard->DisplayAdvice(__S("[ADVICE_PLANT_NEEDS_MELONPULT]"), MessageStyle::MESSAGE_STYLE_HINT_LONG, AdviceType::ADVICE_PLANT_NEEDS_MELONPULT);
 			}
 			else if (aUseSeedType == SeedType::SEED_TWINSUNFLOWER)
 			{
-				mBoard->DisplayAdvice(_S("[ADVICE_PLANT_NEEDS_SUNFLOWER]"), MessageStyle::MESSAGE_STYLE_HINT_LONG, AdviceType::ADVICE_PLANT_NEEDS_SUNFLOWER);
+				mBoard->DisplayAdvice(__S("[ADVICE_PLANT_NEEDS_SUNFLOWER]"), MessageStyle::MESSAGE_STYLE_HINT_LONG, AdviceType::ADVICE_PLANT_NEEDS_SUNFLOWER);
 			}
 			else if (aUseSeedType == SeedType::SEED_SPIKEROCK)
 			{
-				mBoard->DisplayAdvice(_S("[ADVICE_PLANT_NEEDS_SPIKEWEED]"), MessageStyle::MESSAGE_STYLE_HINT_LONG, AdviceType::ADVICE_PLANT_NEEDS_SPIKEWEED);
+				mBoard->DisplayAdvice(__S("[ADVICE_PLANT_NEEDS_SPIKEWEED]"), MessageStyle::MESSAGE_STYLE_HINT_LONG, AdviceType::ADVICE_PLANT_NEEDS_SPIKEWEED);
 			}
 			else if (aUseSeedType == SeedType::SEED_COBCANNON)
 			{
-				mBoard->DisplayAdvice(_S("[ADVICE_PLANT_NEEDS_KERNELPULT]"), MessageStyle::MESSAGE_STYLE_HINT_LONG, AdviceType::ADVICE_PLANT_NEEDS_KERNELPULT);
+				mBoard->DisplayAdvice(__S("[ADVICE_PLANT_NEEDS_KERNELPULT]"), MessageStyle::MESSAGE_STYLE_HINT_LONG, AdviceType::ADVICE_PLANT_NEEDS_KERNELPULT);
 			}
 			else if (aUseSeedType == SeedType::SEED_GOLD_MAGNET)
 			{
-				mBoard->DisplayAdvice(_S("[ADVICE_PLANT_NEEDS_MAGNETSHROOM]"), MessageStyle::MESSAGE_STYLE_HINT_LONG, AdviceType::ADVICE_PLANT_NEEDS_MAGNETSHROOM);
+				mBoard->DisplayAdvice(__S("[ADVICE_PLANT_NEEDS_MAGNETSHROOM]"), MessageStyle::MESSAGE_STYLE_HINT_LONG, AdviceType::ADVICE_PLANT_NEEDS_MAGNETSHROOM);
 			}
 			else if (aUseSeedType == SeedType::SEED_GLOOMSHROOM)
 			{
-				mBoard->DisplayAdvice(_S("[ADVICE_PLANT_NEEDS_FUMESHROOM]"), MessageStyle::MESSAGE_STYLE_HINT_LONG, AdviceType::ADVICE_PLANT_NEEDS_FUMESHROOM);
+				mBoard->DisplayAdvice(__S("[ADVICE_PLANT_NEEDS_FUMESHROOM]"), MessageStyle::MESSAGE_STYLE_HINT_LONG, AdviceType::ADVICE_PLANT_NEEDS_FUMESHROOM);
 			}
 			else if (aUseSeedType == SeedType::SEED_CATTAIL)
 			{
-				mBoard->DisplayAdvice(_S("[ADVICE_PLANT_NEEDS_LILYPAD]"), MessageStyle::MESSAGE_STYLE_HINT_LONG, AdviceType::ADVICE_PLANT_NEEDS_LILYPAD);
+				mBoard->DisplayAdvice(__S("[ADVICE_PLANT_NEEDS_LILYPAD]"), MessageStyle::MESSAGE_STYLE_HINT_LONG, AdviceType::ADVICE_PLANT_NEEDS_LILYPAD);
 			}
 			else
 			{
@@ -965,7 +965,7 @@ void SeedBank::Draw(Graphics* g)
 
 	if (!mBoard->HasConveyorBeltSeedBank())
 	{
-		SexyString aMoneyLabel = StrFormat(_S("%d"), std::max(mBoard->mSunMoney, 0));
+		SexyString aMoneyLabel = StrFormat(__S("%d"), std::max(mBoard->mSunMoney, 0));
 		Color aMoneyColor(0, 0, 0);
 		if (mBoard->mOutOfMoneyCounter > 0 && mBoard->mOutOfMoneyCounter % 20 < 10)
 		{

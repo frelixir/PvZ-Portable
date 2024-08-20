@@ -70,7 +70,7 @@ void TitleScreen::Draw(Graphics* g)
 
 		if (!mDrawnYet)
 		{
-			TodTraceAndLog("First Draw Time: %d ms\n", SDL_GetTicks64() - mApp->mTimeLoaded);
+			TodTraceAndLog("First Draw Time: %d ms\n", SDL_GetTicks() - mApp->mTimeLoaded);
 			TodHesitationTrace("TitleScreen First Draw");
 			mDrawnYet = true;
 		}
@@ -275,7 +275,7 @@ void TitleScreen::Update()
 	{
 		mNeedToInit = false;
 
-		mStartButton->mLabel = TodStringTranslate(_S("[LOADING]"));
+		mStartButton->mLabel = TodStringTranslate(__S("[LOADING]"));
 		mStartButton->SetFont(FONT_BRIANNETOD16);
 		mStartButton->Resize(mWidth / 2 - IMAGE_LOADBAR_DIRT->mWidth / 2, 650, mTotalBarWidth, 50);
 		mStartButton->mVisible = true;
@@ -327,7 +327,7 @@ void TitleScreen::Update()
 	}
 	else if (mCurBarWidth > mTotalBarWidth)
 	{
-		mStartButton->mLabel = TodStringTranslate(_S("[CLICK_TO_START]"));
+		mStartButton->mLabel = TodStringTranslate(__S("[CLICK_TO_START]"));
 		mCurBarWidth = mTotalBarWidth;
 	}
 

@@ -262,10 +262,10 @@ void AwardScreen::DrawAwardSeed(Graphics* g)
 	SexyString aAward = Plant::GetNameString(aSeedType, SEED_NONE);
 	SexyString aMessage;
 	if (mApp->IsTrialStageLocked() && aSeedType >= SEED_SQUASH && aSeedType != SEED_TANGLEKELP)
-		aMessage = _S("[AVAILABLE_IN_FULL_VERSION]");
+		aMessage = __S("[AVAILABLE_IN_FULL_VERSION]");
 	else
 		aMessage = Plant::GetToolTip(aSeedType);
-	DrawBottom(g, _S("[NEW_PLANT]"), aAward, aMessage);
+	DrawBottom(g, __S("[NEW_PLANT]"), aAward, aMessage);
 
 	g->SetScale(2, 2, 350, 129);
 	DrawSeedPacket(g, 350, 129, aSeedType, SEED_NONE, 0, 255, true, false);
@@ -304,7 +304,7 @@ void AwardScreen::Draw(Graphics* g)
 		{
 			if (mApp->EarnedGoldTrophy())
 			{
-				DrawBottom(g, _S("[BEAT_GAME_MESSAGE1]"), _S("[GOLD_SUNFLOWER_TROPHY]"), _S("[BEAT_GAME_MESSAGE2]"));
+				DrawBottom(g, __S("[BEAT_GAME_MESSAGE1]"), __S("[GOLD_SUNFLOWER_TROPHY]"), __S("[BEAT_GAME_MESSAGE2]"));
 				TodDrawImageCelCenterScaledF(g, Sexy::IMAGE_SUNFLOWER_TROPHY, 330, 80, 1, 0.7f, 0.7f);
 			}
 			else
@@ -314,24 +314,24 @@ void AwardScreen::Draw(Graphics* g)
 				{
 					int aNumTrophies = mApp->GetNumTrophies(CHALLENGE_PAGE_SURVIVAL);
 					aMsgChar =
-						aNumTrophies <= 7 ? _S("[YOU_UNLOCKED_A_SURVIVAL]") :
-						aNumTrophies == 10 ? _S("[YOU_UNLOCKED_ENDLESS_SURVIVAL]") : _S("[EARN_MORE_TROPHIES_FOR_ENDLESS_SURVIVAL]");
+						aNumTrophies <= 7 ? __S("[YOU_UNLOCKED_A_SURVIVAL]") :
+						aNumTrophies == 10 ? __S("[YOU_UNLOCKED_ENDLESS_SURVIVAL]") : __S("[EARN_MORE_TROPHIES_FOR_ENDLESS_SURVIVAL]");
 
 				}
 				else if (mApp->IsScaryPotterLevel())
-					aMsgChar = _S("[UNLOCKED_VASEBREAKER_LEVEL]");
+					aMsgChar = __S("[UNLOCKED_VASEBREAKER_LEVEL]");
 				else if (mApp->IsPuzzleMode())
-					aMsgChar = _S("[UNLOCKED_I_ZOMBIE_LEVEL]");
+					aMsgChar = __S("[UNLOCKED_I_ZOMBIE_LEVEL]");
 				else
-					aMsgChar = mApp->GetNumTrophies(CHALLENGE_PAGE_CHALLENGE) <= 17 ? _S("[CHALLENGE_UNLOCKED]") : _S("[GET_MORE_TROPHIES]");
+					aMsgChar = mApp->GetNumTrophies(CHALLENGE_PAGE_CHALLENGE) <= 17 ? __S("[CHALLENGE_UNLOCKED]") : __S("[GET_MORE_TROPHIES]");
 
-				DrawBottom(g, _S("[GOT_TROPHY]"), _S("[TROPHY]"), aMsgChar);
+				DrawBottom(g, __S("[GOT_TROPHY]"), __S("[TROPHY]"), aMsgChar);
 				g->DrawImage(Sexy::IMAGE_TROPHY_HI_RES, BOARD_WIDTH / 2 - Sexy::IMAGE_TROPHY_HI_RES->mWidth / 2, 137);
 			}
 		}
 		else if (aLevel == 5)
 		{
-			DrawBottom(g, _S("[GOT_SHOVEL]"), _S("[SHOVEL]"), _S("[SHOVEL_DESCRIPTION]"));
+			DrawBottom(g, __S("[GOT_SHOVEL]"), __S("[SHOVEL]"), __S("[SHOVEL_DESCRIPTION]"));
 			g->DrawImage(Sexy::IMAGE_SHOVEL_HI_RES, BOARD_WIDTH / 2 - Sexy::IMAGE_SHOVEL_HI_RES->mWidth / 2, 137);
 		}
 		else if (aLevel == 10)
@@ -339,11 +339,11 @@ void AwardScreen::Draw(Graphics* g)
 			g->DrawImage(Sexy::IMAGE_BACKGROUND1, -700, -300, 2800, 1200);
 			g->DrawImage(Sexy::IMAGE_ZOMBIE_NOTE, 80, 80);
 			g->DrawImage(Sexy::IMAGE_ZOMBIE_NOTE1, 131, 132);
-			TodDrawString(g, _S("[FOUND_NOTE]"), BOARD_WIDTH / 2, 70, Sexy::FONT_DWARVENTODCRAFT24, Color(255, 200, 0, 255), DS_ALIGN_CENTER);
+			TodDrawString(g, __S("[FOUND_NOTE]"), BOARD_WIDTH / 2, 70, Sexy::FONT_DWARVENTODCRAFT24, Color(255, 200, 0, 255), DS_ALIGN_CENTER);
 		}
 		else if (aLevel == 15)
 		{
-			DrawBottom(g, _S("[FOUND_SUBURBAN_ALMANAC]"), _S("[SUBURBAN_ALMANAC]"), _S("[SUBURBAN_ALMANAC_DESCRIPTION]"));
+			DrawBottom(g, __S("[FOUND_SUBURBAN_ALMANAC]"), __S("[SUBURBAN_ALMANAC]"), __S("[SUBURBAN_ALMANAC_DESCRIPTION]"));
 			g->DrawImage(Sexy::IMAGE_ALMANAC, BOARD_WIDTH / 2 - Sexy::IMAGE_ALMANAC->mWidth / 2, 160);
 		}
 		else if (aLevel == 20)
@@ -351,11 +351,11 @@ void AwardScreen::Draw(Graphics* g)
 			g->DrawImage(Sexy::IMAGE_BACKGROUND2, -700, -300, 2800, 1200);
 			g->DrawImage(Sexy::IMAGE_ZOMBIE_NOTE, 80, 80);
 			g->DrawImage(Sexy::IMAGE_ZOMBIE_NOTE2, 133, 127);
-			TodDrawString(g, _S("[FOUND_NOTE]"), BOARD_WIDTH / 2, 70, Sexy::FONT_DWARVENTODCRAFT24, Color(255, 200, 0, 255), DS_ALIGN_CENTER);
+			TodDrawString(g, __S("[FOUND_NOTE]"), BOARD_WIDTH / 2, 70, Sexy::FONT_DWARVENTODCRAFT24, Color(255, 200, 0, 255), DS_ALIGN_CENTER);
 		}
 		else if (aLevel == 25)
 		{
-			DrawBottom(g, _S("[FOUND_KEYS]"), _S("[KEYS]"), _S("[KEYS_DESCRIPTION]"));
+			DrawBottom(g, __S("[FOUND_KEYS]"), __S("[KEYS]"), __S("[KEYS_DESCRIPTION]"));
 			g->DrawImage(Sexy::IMAGE_CARKEYS, BOARD_WIDTH / 2 - Sexy::IMAGE_CARKEYS->mWidth / 2, 160);
 		}
 		else if (aLevel == 30)
@@ -363,11 +363,11 @@ void AwardScreen::Draw(Graphics* g)
 			g->DrawImage(Sexy::IMAGE_BACKGROUND1, -700, -300, 2800, 1200);
 			g->DrawImage(Sexy::IMAGE_ZOMBIE_NOTE, 80, 80);
 			g->DrawImage(Sexy::IMAGE_ZOMBIE_NOTE3, 120, 117);
-			TodDrawString(g, _S("[FOUND_NOTE]"), BOARD_WIDTH / 2, 70, Sexy::FONT_DWARVENTODCRAFT24, Color(255, 200, 0, 255), DS_ALIGN_CENTER);
+			TodDrawString(g, __S("[FOUND_NOTE]"), BOARD_WIDTH / 2, 70, Sexy::FONT_DWARVENTODCRAFT24, Color(255, 200, 0, 255), DS_ALIGN_CENTER);
 		}
 		else if (aLevel == 35)
 		{
-			DrawBottom(g, _S("[FOUND_TACO]"), _S("[TACO]"), _S("[TACO_DESCRIPTION]"));
+			DrawBottom(g, __S("[FOUND_TACO]"), __S("[TACO]"), __S("[TACO_DESCRIPTION]"));
 			g->DrawImage(Sexy::IMAGE_TACO, BOARD_WIDTH / 2 - Sexy::IMAGE_TACO->mWidth / 2, 160);
 		}
 		else if (aLevel == 40)
@@ -375,11 +375,11 @@ void AwardScreen::Draw(Graphics* g)
 			g->DrawImage(Sexy::IMAGE_BACKGROUND2, -700, -300, 2800, 1200);
 			g->DrawImage(Sexy::IMAGE_ZOMBIE_NOTE, 80, 80);
 			g->DrawImage(Sexy::IMAGE_ZOMBIE_NOTE4, 102, 117);
-			TodDrawString(g, _S("[FOUND_NOTE]"), BOARD_WIDTH / 2, 70, Sexy::FONT_DWARVENTODCRAFT24, Color(255, 200, 0, 255), DS_ALIGN_CENTER);
+			TodDrawString(g, __S("[FOUND_NOTE]"), BOARD_WIDTH / 2, 70, Sexy::FONT_DWARVENTODCRAFT24, Color(255, 200, 0, 255), DS_ALIGN_CENTER);
 		}
 		else if (aLevel == 45)
 		{
-			DrawBottom(g, _S("[FOUND_WATERING_CAN]"), _S("[WATERING_CAN]"), _S("[WATERING_CAN_DESCRIPTION]"));
+			DrawBottom(g, __S("[FOUND_WATERING_CAN]"), __S("[WATERING_CAN]"), __S("[WATERING_CAN_DESCRIPTION]"));
 			g->DrawImage(Sexy::IMAGE_WATERINGCAN, BOARD_WIDTH / 2 - Sexy::IMAGE_WATERINGCAN->mWidth / 2, 160);
 		}
 		else if (aLevel == 50)
@@ -387,11 +387,11 @@ void AwardScreen::Draw(Graphics* g)
 			g->DrawImage(Sexy::IMAGE_BACKGROUND1, -700, -300, 2800, 1200);
 			g->DrawImage(Sexy::IMAGE_ZOMBIE_NOTE, 80, 80);
 			g->DrawImage(Sexy::IMAGE_ZOMBIE_FINAL_NOTE, 114, 138);
-			TodDrawString(g, _S("[FOUND_NOTE]"), BOARD_WIDTH / 2, 70, Sexy::FONT_DWARVENTODCRAFT24, Color(255, 200, 0, 255), DS_ALIGN_CENTER);
+			TodDrawString(g, __S("[FOUND_NOTE]"), BOARD_WIDTH / 2, 70, Sexy::FONT_DWARVENTODCRAFT24, Color(255, 200, 0, 255), DS_ALIGN_CENTER);
 		}
 		else if (aLevel == 1 && mApp->HasFinishedAdventure())
 		{
-			DrawBottom(g, _S("[WIN_MESSAGE1]"), _S("[SILVER_SUNFLOWER_TROPHY]"), _S("[WIN_MESSAGE2]"));
+			DrawBottom(g, __S("[WIN_MESSAGE1]"), __S("[SILVER_SUNFLOWER_TROPHY]"), __S("[WIN_MESSAGE2]"));
 			TodDrawImageCelCenterScaledF(g, Sexy::IMAGE_SUNFLOWER_TROPHY, 325, 65, 0, 0.7f, 0.7f);
 		}
 		else
@@ -593,7 +593,7 @@ void AwardScreen::DrawAchievements(Graphics* g) {
 
 	g->DrawImage(IMAGE_CHALLENGE_BACKGROUND, 0, 0);
 
-	TodDrawString(g, _S("ACHIEVEMENTS"), BOARD_WIDTH / 2, 58, FONT_HOUSEOFTERROR28, Color(220, 220, 220), DS_ALIGN_CENTER);
+	TodDrawString(g, __S("ACHIEVEMENTS"), BOARD_WIDTH / 2, 58, FONT_HOUSEOFTERROR28, Color(220, 220, 220), DS_ALIGN_CENTER);
 
 	for (size_t i = 0; i < mAchievementItems.size(); i++) {
 		std::string aAchievementName = gAchievementList[mAchievementItems[i].mId].name;

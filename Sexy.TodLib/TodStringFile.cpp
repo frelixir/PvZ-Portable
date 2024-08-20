@@ -172,7 +172,7 @@ SexyString TodStringListFind(const SexyString& theName)
 	}
 	else
 	{
-		return Sexy::StrFormat(_S("<Missing %s>"), theName.c_str());
+		return Sexy::StrFormat(__S("<Missing %s>"), theName.c_str());
 	}
 }
 

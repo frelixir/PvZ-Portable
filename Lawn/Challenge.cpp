@@ -457,26 +457,26 @@ void Challenge::StartLevel()
 	if (mApp->IsSurvivalMode() && mSurvivalStage == 0)
 	{
 		SexyString aMessage =
-			mApp->IsSurvivalNormal(aGameMode) ? TodReplaceNumberString(_S("[ADVICE_SURVIVE_FLAGS]"), _S("{FLAGS}"), SURVIVAL_NORMAL_FLAGS) :
-			mApp->IsSurvivalHard(aGameMode) ? TodReplaceNumberString(_S("[ADVICE_SURVIVE_FLAGS]"), _S("{FLAGS}"), SURVIVAL_HARD_FLAGS) : 
-			_S("[ADVICE_SURVIVE_ENDLESS]");
+			mApp->IsSurvivalNormal(aGameMode) ? TodReplaceNumberString(__S("[ADVICE_SURVIVE_FLAGS]"), __S("{FLAGS}"), SURVIVAL_NORMAL_FLAGS) :
+			mApp->IsSurvivalHard(aGameMode) ? TodReplaceNumberString(__S("[ADVICE_SURVIVE_FLAGS]"), __S("{FLAGS}"), SURVIVAL_HARD_FLAGS) : 
+			__S("[ADVICE_SURVIVE_ENDLESS]");
 		mBoard->DisplayAdvice(aMessage, MESSAGE_STYLE_HINT_FAST, ADVICE_SURVIVE_FLAGS);
 	}
 	if (aGameMode == GAMEMODE_CHALLENGE_LAST_STAND && mSurvivalStage == 0)
 	{
-		mBoard->DisplayAdvice(TodReplaceNumberString(_S("[ADVICE_SURVIVE_FLAGS]"), _S("{FLAGS}"), LAST_STAND_FLAGS), MESSAGE_STYLE_BIG_MIDDLE_FAST, ADVICE_SURVIVE_FLAGS);
+		mBoard->DisplayAdvice(TodReplaceNumberString(__S("[ADVICE_SURVIVE_FLAGS]"), __S("{FLAGS}"), LAST_STAND_FLAGS), MESSAGE_STYLE_BIG_MIDDLE_FAST, ADVICE_SURVIVE_FLAGS);
 	}
 	if (aGameMode == GAMEMODE_CHALLENGE_ART_CHALLENGE_WALLNUT)
 	{
-		mBoard->DisplayAdvice(_S("[ADVICE_FILL_IN_WALLNUTS]"), MESSAGE_STYLE_HINT_FAST, ADVICE_NONE);
+		mBoard->DisplayAdvice(__S("[ADVICE_FILL_IN_WALLNUTS]"), MESSAGE_STYLE_HINT_FAST, ADVICE_NONE);
 	}
 	if (aGameMode == GAMEMODE_CHALLENGE_ART_CHALLENGE_SUNFLOWER)
 	{
-		mBoard->DisplayAdvice(_S("[ADVICE_FILL_IN_SPACES]"), MESSAGE_STYLE_HINT_FAST, ADVICE_NONE);
+		mBoard->DisplayAdvice(__S("[ADVICE_FILL_IN_SPACES]"), MESSAGE_STYLE_HINT_FAST, ADVICE_NONE);
 	}
 	if (aGameMode == GAMEMODE_CHALLENGE_SEEING_STARS)
 	{
-		mBoard->DisplayAdvice(_S("[ADVICE_FILL_IN_STARFRUIT]"), MESSAGE_STYLE_HINT_FAST, ADVICE_NONE);
+		mBoard->DisplayAdvice(__S("[ADVICE_FILL_IN_STARFRUIT]"), MESSAGE_STYLE_HINT_FAST, ADVICE_NONE);
 	}
 	if (mApp->IsSlotMachineLevel())
 	{
@@ -492,11 +492,11 @@ void Challenge::StartLevel()
 
 		if (aGameMode == GAMEMODE_CHALLENGE_BEGHOULED)
 		{
-			mBoard->DisplayAdvice(_S("[ADVICE_BEGHOULED_DRAG_TO_MATCH_3]"), MESSAGE_STYLE_HINT_FAST, ADVICE_NONE);
+			mBoard->DisplayAdvice(__S("[ADVICE_BEGHOULED_DRAG_TO_MATCH_3]"), MESSAGE_STYLE_HINT_FAST, ADVICE_NONE);
 		}
 		else if (aGameMode == GAMEMODE_CHALLENGE_BEGHOULED_TWIST)
 		{
-			mBoard->DisplayAdvice(_S("[ADVICE_BEGHOULED_TWIST_TO_MATCH_3]"), MESSAGE_STYLE_HINT_FAST, ADVICE_NONE);
+			mBoard->DisplayAdvice(__S("[ADVICE_BEGHOULED_TWIST_TO_MATCH_3]"), MESSAGE_STYLE_HINT_FAST, ADVICE_NONE);
 		}
 	}
 	if (mApp->IsMiniBossLevel())
@@ -524,7 +524,7 @@ void Challenge::StartLevel()
 	}
 	if (aGameMode == GAMEMODE_CHALLENGE_ZOMBIQUARIUM)
 	{
-		mBoard->DisplayAdvice(_S("[ADVICE_ZOMBIQUARIUM_CLICK_TO_FEED]"), MESSAGE_STYLE_HINT_TALL_FAST, ADVICE_ZOMBIQUARIUM_CLICK_TO_FEED);
+		mBoard->DisplayAdvice(__S("[ADVICE_ZOMBIQUARIUM_CLICK_TO_FEED]"), MESSAGE_STYLE_HINT_TALL_FAST, ADVICE_ZOMBIQUARIUM_CLICK_TO_FEED);
 		ZombiquariumSpawnSnorkle();
 		ZombiquariumSpawnSnorkle();
 	}
@@ -859,7 +859,7 @@ void Challenge::BeghouledScore(int theGridX, int theGridY, int theNumPlants, int
 		mBoard->mSeedBank->mSeedPackets[3].SetPacketType(SEED_BEGHOULED_BUTTON_SHUFFLE, SEED_NONE);
 		mBoard->mSeedBank->mNumPackets = 4;
 
-		mBoard->DisplayAdvice(_S("[ADVICE_BEGHOULED_SAVE_SUN]"), MESSAGE_STYLE_HINT_FAST, ADVICE_BEGHOULED_SAVE_SUN);
+		mBoard->DisplayAdvice(__S("[ADVICE_BEGHOULED_SAVE_SUN]"), MESSAGE_STYLE_HINT_FAST, ADVICE_BEGHOULED_SAVE_SUN);
 
 		if (BeghouledCanClearCrater())
 		{
@@ -871,12 +871,12 @@ void Challenge::BeghouledScore(int theGridX, int theGridY, int theNumPlants, int
 	{
 		if (!mBoard->mAdvice->IsBeingDisplayed())
 		{
-			SexyString aMsg = TodReplaceNumberString(_S("[ADVICE_BEGHOULED_MATCH_3]"), _S("{SCORE}"), BEGHOULED_WINNING_SCORE);
+			SexyString aMsg = TodReplaceNumberString(__S("[ADVICE_BEGHOULED_MATCH_3]"), __S("{SCORE}"), BEGHOULED_WINNING_SCORE);
 			mBoard->DisplayAdvice(aMsg, MESSAGE_STYLE_HINT_FAST, ADVICE_BEGHOULED_MATCH_3);
 		}
 		if (mChallengeScore >= BEGHOULED_WINNING_SCORE - 5)
 		{
-			mBoard->DisplayAdvice(_S("[ADVICE_BEGHOULED_ALMOST_THERE]"), MESSAGE_STYLE_HINT_FAST, ADVICE_ALMOST_THERE);
+			mBoard->DisplayAdvice(__S("[ADVICE_BEGHOULED_ALMOST_THERE]"), MESSAGE_STYLE_HINT_FAST, ADVICE_ALMOST_THERE);
 		}
 	}
 
@@ -1171,11 +1171,11 @@ int Challenge::UpdateToolTip(int theX, int theY)
 	
 	if (!mBoard->CanTakeSunMoney(25))
 	{
-		mBoard->mToolTip->SetWarningText(_S("[NOT_ENOUGH_SUN]"));
+		mBoard->mToolTip->SetWarningText(__S("[NOT_ENOUGH_SUN]"));
 	}
 
 	Rect aSlotMachineHandleRect = SlotMachineGetHandleRect();
-	mBoard->mToolTip->SetLabel(_S("[SLOT_MACHINE_PULL_TOOLTIP]"));
+	mBoard->mToolTip->SetLabel(__S("[SLOT_MACHINE_PULL_TOOLTIP]"));
 	mBoard->mToolTip->SetPosition(aSlotMachineHandleRect.mX + 15, aSlotMachineHandleRect.mY + 65);
 	mBoard->mToolTip->mVisible = true;
 	mBoard->mToolTip->mCenter = true;
@@ -1349,7 +1349,7 @@ int Challenge::MouseUp(int x, int y)
 	{
 		if (mBeghouledMouseCapture && !mBoard->mAdvice->IsBeingDisplayed() && mChallengeScore == 0)
 		{
-			mBoard->DisplayAdvice(_S("[ADVICE_BEGHOULED_DRAG_TO_MATCH_3]"), MESSAGE_STYLE_HINT_FAST, ADVICE_BEGHOULED_DRAG_TO_MATCH_3);
+			mBoard->DisplayAdvice(__S("[ADVICE_BEGHOULED_DRAG_TO_MATCH_3]"), MESSAGE_STYLE_HINT_FAST, ADVICE_BEGHOULED_DRAG_TO_MATCH_3);
 		}
 
 		BeghouledDragCancel();
@@ -1560,7 +1560,7 @@ void Challenge::UpdateBeghouled()
 		int aCost = mBoard->GetCurrentPlantCost(SEED_BEGHOULED_BUTTON_CRATER, SEED_NONE);
 		if (mBoard->CanTakeSunMoney(aCost) && BeghouledCanClearCrater() && !mBoard->HasLevelAwardDropped())
 		{
-			mBoard->DisplayAdvice(_S("[ADVICE_BEGHOULED_USE_CRATER_2]"), MESSAGE_STYLE_HINT_FAST, ADVICE_BEGHOULED_USE_CRATER_2);
+			mBoard->DisplayAdvice(__S("[ADVICE_BEGHOULED_USE_CRATER_2]"), MESSAGE_STYLE_HINT_FAST, ADVICE_BEGHOULED_USE_CRATER_2);
 		}
 	}
 
@@ -2016,7 +2016,7 @@ void Challenge::UpdateSlotMachine()
 	int aSunMoney = ClampInt(mBoard->mSunMoney, 0, 2000);
 	if (aSunMoney >= SLOT_MACHINE_WINNING_SCORE - 100)
 	{
-		mBoard->DisplayAdvice(_S("[ADVICE_ALMOST_THERE]"), MESSAGE_STYLE_HINT_FAST, ADVICE_ALMOST_THERE);
+		mBoard->DisplayAdvice(__S("[ADVICE_ALMOST_THERE]"), MESSAGE_STYLE_HINT_FAST, ADVICE_ALMOST_THERE);
 	}
 	if (aSunMoney >= 2000)
 	{
@@ -2027,7 +2027,7 @@ void Challenge::UpdateSlotMachine()
 
 	if (!mBoard->mAdvice->IsBeingDisplayed())
 	{
-		SexyString aMsg = TodReplaceNumberString(_S("[ADVICE_SLOT_MACHINE_COLLECT_SUN]"), _S("{SCORE}"), SLOT_MACHINE_WINNING_SCORE);
+		SexyString aMsg = TodReplaceNumberString(__S("[ADVICE_SLOT_MACHINE_COLLECT_SUN]"), __S("{SCORE}"), SLOT_MACHINE_WINNING_SCORE);
 		mBoard->DisplayAdvice(aMsg, MESSAGE_STYLE_SLOT_MACHINE, ADVICE_SLOT_MACHINE_COLLECT_SUN);
 	}
 
@@ -2035,7 +2035,7 @@ void Challenge::UpdateSlotMachine()
 	{
 		if (!mBoard->mAdvice->IsBeingDisplayed() && !mBoard->HasLevelAwardDropped())
 		{
-			mBoard->DisplayAdviceAgain(_S("[ADVICE_SLOT_MACHINE_SPIN_AGAIN]"), MESSAGE_STYLE_SLOT_MACHINE, ADVICE_SLOT_MACHINE_SPIN_AGAIN);
+			mBoard->DisplayAdviceAgain(__S("[ADVICE_SLOT_MACHINE_SPIN_AGAIN]"), MESSAGE_STYLE_SLOT_MACHINE, ADVICE_SLOT_MACHINE_SPIN_AGAIN);
 		}
 	}
 	else if (mBoard->mSeedBank->mSeedPackets[0].mSlotMachineCountDown <= 0)
@@ -2054,12 +2054,12 @@ void Challenge::UpdateSlotMachine()
 				SeedType aSeedType = (aPacket1 == aPacket2 || aPacket1 == aPacket3) ? aPacket1 : aPacket2;
 				if (aSeedType == SEED_SLOT_MACHINE_DIAMOND)
 				{
-					mBoard->DisplayAdvice(_S("[ADVICE_SLOT_MACHINE_2_DIAMONDS]"), MESSAGE_STYLE_SLOT_MACHINE, ADVICE_NONE);
+					mBoard->DisplayAdvice(__S("[ADVICE_SLOT_MACHINE_2_DIAMONDS]"), MESSAGE_STYLE_SLOT_MACHINE, ADVICE_NONE);
 					mBoard->AddCoin(360, 85, COIN_DIAMOND, COIN_MOTION_COIN);
 				}
 				else if (aSeedType == SEED_SLOT_MACHINE_SUN)
 				{
-					mBoard->DisplayAdvice(_S("[ADVICE_SLOT_MACHINE_2_SUNS]"), MESSAGE_STYLE_SLOT_MACHINE, ADVICE_NONE);
+					mBoard->DisplayAdvice(__S("[ADVICE_SLOT_MACHINE_2_SUNS]"), MESSAGE_STYLE_SLOT_MACHINE, ADVICE_NONE);
 					for (int i = 0; i < 4; i++)
 					{
 						mBoard->AddCoin(320 + i * 15, 85, COIN_SUN, COIN_MOTION_COIN);
@@ -2067,7 +2067,7 @@ void Challenge::UpdateSlotMachine()
 				}
 				else
 				{
-					mBoard->DisplayAdvice(_S("[ADVICE_SLOT_MACHINE_2_OF_A_KIND]"), MESSAGE_STYLE_SLOT_MACHINE, ADVICE_NONE);
+					mBoard->DisplayAdvice(__S("[ADVICE_SLOT_MACHINE_2_OF_A_KIND]"), MESSAGE_STYLE_SLOT_MACHINE, ADVICE_NONE);
 					mBoard->AddCoin(360, 85, COIN_USABLE_SEED_PACKET, COIN_MOTION_COIN)->mUsableSeedType = aSeedType;
 				}
 			}
@@ -2077,7 +2077,7 @@ void Challenge::UpdateSlotMachine()
 			mApp->PlayFoley(FOLEY_ART_CHALLENGE);
 			if (aPacket1 == SEED_SLOT_MACHINE_DIAMOND)
 			{
-				mBoard->DisplayAdvice(_S("[ADVICE_SLOT_MACHINE_DIAMOND_JACKPOT]"), MESSAGE_STYLE_SLOT_MACHINE, ADVICE_NONE);
+				mBoard->DisplayAdvice(__S("[ADVICE_SLOT_MACHINE_DIAMOND_JACKPOT]"), MESSAGE_STYLE_SLOT_MACHINE, ADVICE_NONE);
 				for (int i = 0; i < 5; i++)
 				{
 					mBoard->AddCoin(320 + i * 12, 85, COIN_DIAMOND, COIN_MOTION_COIN);
@@ -2085,7 +2085,7 @@ void Challenge::UpdateSlotMachine()
 			}
 			else if (aPacket1 == SEED_SLOT_MACHINE_SUN)
 			{
-				mBoard->DisplayAdvice(_S("[ADVICE_SLOT_MACHINE_SUN_JACKPOT]"), MESSAGE_STYLE_SLOT_MACHINE, ADVICE_NONE);
+				mBoard->DisplayAdvice(__S("[ADVICE_SLOT_MACHINE_SUN_JACKPOT]"), MESSAGE_STYLE_SLOT_MACHINE, ADVICE_NONE);
 				for (int i = 0; i < 20; i++)
 				{
 					mBoard->AddCoin(320 + i * 3, 85, COIN_SUN, COIN_MOTION_COIN);
@@ -2093,7 +2093,7 @@ void Challenge::UpdateSlotMachine()
 			}
 			else
 			{
-				mBoard->DisplayAdvice(_S("[ADVICE_SLOT_MACHINE_3_OF_A_KIND]"), MESSAGE_STYLE_SLOT_MACHINE, ADVICE_NONE);
+				mBoard->DisplayAdvice(__S("[ADVICE_SLOT_MACHINE_3_OF_A_KIND]"), MESSAGE_STYLE_SLOT_MACHINE, ADVICE_NONE);
 				// @Patoke: fix silly bug XD
 				for (int i = 0; i < 3; i++)
 				{
@@ -2132,7 +2132,7 @@ void Challenge::ZombieAtePlant(/*Zombie* theZombie,*/ Plant* thePlant)
 	if (mBoard->mSeedBank->mNumPackets == 4)
 	{
 		mBoard->mSeedBank->mSeedPackets[4].SetPacketType(SEED_BEGHOULED_BUTTON_CRATER);
-		mBoard->DisplayAdvice(_S("[ADVICE_BEGHOULED_USE_CRATER_1]"), MESSAGE_STYLE_HINT_FAST, ADVICE_BEGHOULED_USE_CRATER_1);
+		mBoard->DisplayAdvice(__S("[ADVICE_BEGHOULED_USE_CRATER_1]"), MESSAGE_STYLE_HINT_FAST, ADVICE_BEGHOULED_USE_CRATER_1);
 	}
 
 	BeghouledCheckStuckState();
@@ -3747,7 +3747,7 @@ void Challenge::ZombiquariumUpdate()
 	}
 	if (!mBoard->mAdvice->IsBeingDisplayed() && !mBoard->mHelpDisplayed[ADVICE_ZOMBIQUARIUM_COLLECT_SUN])
 	{
-		SexyString aMsg = TodReplaceNumberString(_S("[ADVICE_ZOMBIQUARIUM_COLLECT_SUN]"), _S("{SCORE}"), ZOMBIQUARIUM_WINNING_SCORE);
+		SexyString aMsg = TodReplaceNumberString(__S("[ADVICE_ZOMBIQUARIUM_COLLECT_SUN]"), __S("{SCORE}"), ZOMBIQUARIUM_WINNING_SCORE);
 		mBoard->DisplayAdvice(aMsg, MESSAGE_STYLE_HINT_TALL_FAST, ADVICE_ZOMBIQUARIUM_COLLECT_SUN);
 	}
 
@@ -5148,7 +5148,7 @@ void Challenge::SquirrelFound(GridItem* theSquirrel)
 			int aSquirrelsRemaining = SquirrelCountUncaught();
 			if (aSquirrelsRemaining)
 			{
-				SexyString aMessage = mApp->Pluralize(aSquirrelsRemaining, _S("[ADVICE_SQUIRRELS_ONE_LEFT]"), _S("[ADVICE_SQUIRRELS_LEFT]"));
+				SexyString aMessage = mApp->Pluralize(aSquirrelsRemaining, __S("[ADVICE_SQUIRRELS_ONE_LEFT]"), __S("[ADVICE_SQUIRRELS_LEFT]"));
 				mBoard->DisplayAdvice(aMessage, MESSAGE_STYLE_HINT_FAST, ADVICE_NONE);
 			}
 			else
@@ -5290,8 +5290,8 @@ void Challenge::LastStandCompletedStage()
 		}
 	}
 
-	SexyString aFlagStr = mApp->Pluralize(mBoard->GetSurvivalFlagsCompleted(), _S("[ONE_FLAG]"), _S("[COUNT_FLAGS]"));
-	SexyString aMsg = TodReplaceString(_S("[SUCCESSFULLY_DEFENDED]"), _S("{FLAGS}"), aFlagStr);
+	SexyString aFlagStr = mApp->Pluralize(mBoard->GetSurvivalFlagsCompleted(), __S("[ONE_FLAG]"), __S("[COUNT_FLAGS]"));
+	SexyString aMsg = TodReplaceString(__S("[SUCCESSFULLY_DEFENDED]"), __S("{FLAGS}"), aFlagStr);
 	mBoard->DisplayAdvice(aMsg, MESSAGE_STYLE_BIG_MIDDLE_FAST, ADVICE_NONE);
 
 	mSurvivalStage++;
@@ -5389,7 +5389,7 @@ void Challenge::TreeOfWisdomDraw(Graphics* g)
 		}
 
 		g->DrawImage(Sexy::IMAGE_STORE_SPEECHBUBBLE2, aPosX, aPosY);
-		SexyString aText = StrFormat(_S("[TREE_OF_WISDOM_%d]"), mTreeOfWisdomTalkIndex);
+		SexyString aText = StrFormat(__S("[TREE_OF_WISDOM_%d]"), mTreeOfWisdomTalkIndex);
 		TodDrawStringWrapped(g, aText, Rect(aPosX + 25, aPosY + 6, 233, 144), Sexy::FONT_BRIANNETOD16, Color::Black, DS_ALIGN_CENTER_VERTICAL_MIDDLE);
 	}
 
@@ -5405,7 +5405,7 @@ void Challenge::TreeOfWisdomDraw(Graphics* g)
 	}
 	if (aCurSize >= 50)
 	{
-		SexyString aSizeStr = TodReplaceNumberString(_S("[TREE_OF_WISDOM_HIEGHT]"), _S("{HEIGHT}"), aCurSize);
+		SexyString aSizeStr = TodReplaceNumberString(__S("[TREE_OF_WISDOM_HIEGHT]"), __S("{HEIGHT}"), aCurSize);
 		float aStrWidth = Sexy::FONT_HOUSEOFTERROR16->StringWidth(aSizeStr) * aScale;
 		float aStrHeight = Sexy::FONT_HOUSEOFTERROR16->mAscent * aScale;
 
@@ -5685,7 +5685,7 @@ void Challenge::TreeOfWisdomOpenStore()
 {
 	TreeOfWisdomLeave();
 	StoreScreen* aStore = mApp->ShowStoreScreen();
-	aStore->mBackButton->SetLabel(_S("[STORE_BACK_TO_GAME]"));
+	aStore->mBackButton->SetLabel(__S("[STORE_BACK_TO_GAME]"));
 	aStore->mPage = STORE_PAGE_ZEN2;
 	aStore->WaitForResult(true);
 	mApp->mMusic->MakeSureMusicIsPlaying(MUSIC_TUNE_ZEN_GARDEN);

@@ -20,6 +20,7 @@
 #include <algorithm>
 #include <cstdlib>
 #include <cstdint>
+#include <ctime>
 
 #ifdef _WIN32
 #define NOMINMAX 1
@@ -89,7 +90,7 @@ typedef struct _GUID {
 
 // Removed wide string support
 typedef std::string			SexyString;
-#define _S(x)				x
+#define __S(x)				x
 
 #define sexystrncmp			strncmp
 #define sexystrcmp			strcmp

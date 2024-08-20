@@ -1107,7 +1107,7 @@ int Graphics::WriteString(const SexyString& theString, int theX, int theY, int t
 		{
 			if (i+1<theLength && theString[i+1] == '^') // literal '^'
 			{
-				aString += _S('^');
+				aString += __S('^');
 				i++;
 			}
 			else if (i>theLength-8) // badly formatted color specification
@@ -1115,9 +1115,9 @@ int Graphics::WriteString(const SexyString& theString, int theX, int theY, int t
 			else // change color instruction
 			{
 				DWORD aColor = 0;
-				if (theString[i+1]==_S('o'))
+				if (theString[i+1]==__S('o'))
 				{
-					if (sexystrncmp(theString.c_str()+i+1, _S("oldclr"), 6) == 0)
+					if (sexystrncmp(theString.c_str()+i+1, __S("oldclr"), 6) == 0)
 						aColor = theOldColor;
 				}
 				else
@@ -1127,12 +1127,12 @@ int Graphics::WriteString(const SexyString& theString, int theX, int theY, int t
 						SexyChar aChar = theString[i+aDigitNum+1];
 						int aVal = 0;
 
-						if ((aChar >= _S('0')) && (aChar <= _S('9')))
-							aVal = aChar - _S('0');
-						else if ((aChar >= _S('A')) && (aChar <= _S('F')))
-							aVal = (aChar - _S('A')) + 10;
-						else if ((aChar >= _S('a')) && (aChar <= _S('f')))
-							aVal = (aChar - _S('a')) + 10;
+						if ((aChar >= __S('0')) && (aChar <= __S('9')))
+							aVal = aChar - __S('0');
+						else if ((aChar >= __S('A')) && (aChar <= __S('F')))
+							aVal = (aChar - __S('A')) + 10;
+						else if ((aChar >= __S('a')) && (aChar <= __S('f')))
+							aVal = (aChar - __S('a')) + 10;
 
 						aColor += (aVal << ((5 - aDigitNum) * 4));
 					}				
@@ -1148,7 +1148,7 @@ int Graphics::WriteString(const SexyString& theString, int theX, int theY, int t
 
 				aXOffset += GetFont()->StringWidth(aString);
 
-				aString = _S("");
+				aString = __S("");
 			}
 		}
 		else
@@ -1219,11 +1219,11 @@ int	Graphics::WriteWordWrapped(const Rect& theRect, const SexyString& theLine, i
 	while (aCurPos < theLine.length())
 	{	
 		aCurChar = theLine[aCurPos];
-		if(aCurChar==_S('^') && mWriteColoredString) // Handle special color modifier
+		if(aCurChar==__S('^') && mWriteColoredString) // Handle special color modifier
 		{
 			if(aCurPos+1<theLine.length())
 			{
-				if(theLine[aCurPos+1]==_S('^'))
+				if(theLine[aCurPos+1]==__S('^'))
 					aCurPos++; // literal '^' -> just skip the extra '^'
 				else 
 				{
@@ -1232,9 +1232,9 @@ int	Graphics::WriteWordWrapped(const Rect& theRect, const SexyString& theLine, i
 				}
 			}
 		}
-		else if(aCurChar==_S(' '))
+		else if(aCurChar==__S(' '))
 			aSpacePos = aCurPos;
-		else if(aCurChar==_S('\n'))
+		else if(aCurChar==__S('\n'))
 		{
 			aCurWidth = theRect.mWidth+1; // force word wrap
 			aSpacePos = aCurPos;
@@ -1268,9 +1268,9 @@ int	Graphics::WriteWordWrapped(const Rect& theRect, const SexyString& theLine, i
 					break;
 
 				aCurPos = aSpacePos+1;
-				if (aCurChar != _S('\n'))
+				if (aCurChar != __S('\n'))
 				{
-					while (aCurPos<theLine.length() && theLine[aCurPos]==_S(' '))
+					while (aCurPos<theLine.length() && theLine[aCurPos]==__S(' '))
 						aCurPos++;
 				}
 				aLineStartPos = aCurPos;

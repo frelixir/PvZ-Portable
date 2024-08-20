@@ -323,11 +323,11 @@ CreditScreen::CreditScreen(LawnApp* theApp)
     mCreditsPhaseCounter = 0;
     mDrawBrain = false;
 
-	mMainMenuButton = MakeButton(CreditScreen::Credits_Button_MainMenu, this, _S("[CREDITS_MAIN_MENU_BUTTON]"));
+	mMainMenuButton = MakeButton(CreditScreen::Credits_Button_MainMenu, this, __S("[CREDITS_MAIN_MENU_BUTTON]"));
 	mMainMenuButton->Resize(298, 554, 209, 46);
 	mMainMenuButton->SetVisible(false);
 
-	mReplayButton = MakeNewButton(CreditScreen::Credits_Button_Replay, this, _S("[CREDITS_REPLAY_BUTTON]"), FONT_HOUSEOFTERROR16, IMAGE_CREDITS_PLAYBUTTON, nullptr, nullptr);
+	mReplayButton = MakeNewButton(CreditScreen::Credits_Button_Replay, this, __S("[CREDITS_REPLAY_BUTTON]"), FONT_HOUSEOFTERROR16, IMAGE_CREDITS_PLAYBUTTON, nullptr, nullptr);
 	mReplayButton->mTextDownOffsetX = 1;
 	mReplayButton->mTextDownOffsetY = 1;
 	mReplayButton->mColors[ButtonWidget::COLOR_LABEL] = Color(255, 255, 255);
@@ -722,18 +722,18 @@ void CreditScreen::DrawOverlay(Graphics* g)
 //0x435550
 void CreditScreen::DrawFinalCredits(Graphics* g)
 {
-    TodDrawString(g, _S("[CREDITS_GAMENAME]"), BOARD_WIDTH / 2, 60, FONT_HOUSEOFTERROR28, Color::White, DrawStringJustification::DS_ALIGN_CENTER);
+    TodDrawString(g, __S("[CREDITS_GAMENAME]"), BOARD_WIDTH / 2, 60, FONT_HOUSEOFTERROR28, Color::White, DrawStringJustification::DS_ALIGN_CENTER);
 
     Rect aRectNames1(405, 90, 200, 200);
-    TodDrawStringWrapped(g, _S("[CREDITS_NAMES1]"), aRectNames1, FONT_HOUSEOFTERROR16, Color::White, DrawStringJustification::DS_ALIGN_LEFT);
+    TodDrawStringWrapped(g, __S("[CREDITS_NAMES1]"), aRectNames1, FONT_HOUSEOFTERROR16, Color::White, DrawStringJustification::DS_ALIGN_LEFT);
     Rect aRectRoles1(190, 90, 200, 200);
-    TodDrawStringWrapped(g, _S("[CREDITS_ROLES1]"), aRectRoles1, FONT_HOUSEOFTERROR16, Color::White, DrawStringJustification::DS_ALIGN_RIGHT);
+    TodDrawStringWrapped(g, __S("[CREDITS_ROLES1]"), aRectRoles1, FONT_HOUSEOFTERROR16, Color::White, DrawStringJustification::DS_ALIGN_RIGHT);
     Rect aRectNames2(340, 280, 450, 250);
-    TodDrawStringWrapped(g, _S("[CREDITS_NAMES2]"), aRectNames2, FONT_HOUSEOFTERROR16, Color::White, DrawStringJustification::DS_ALIGN_LEFT);
+    TodDrawStringWrapped(g, __S("[CREDITS_NAMES2]"), aRectNames2, FONT_HOUSEOFTERROR16, Color::White, DrawStringJustification::DS_ALIGN_LEFT);
     Rect aRectRoles2(30, 280, 300, 250);
-    TodDrawStringWrapped(g, _S("[CREDITS_ROLES2]"), aRectRoles2, FONT_HOUSEOFTERROR16, Color::White, DrawStringJustification::DS_ALIGN_RIGHT);
+    TodDrawStringWrapped(g, __S("[CREDITS_ROLES2]"), aRectRoles2, FONT_HOUSEOFTERROR16, Color::White, DrawStringJustification::DS_ALIGN_RIGHT);
 
-    TodDrawString(g, _S("[CREDITS_THANKS]"), BOARD_WIDTH / 2, 530, FONT_HOUSEOFTERROR16, Color::White, DrawStringJustification::DS_ALIGN_CENTER);
+    TodDrawString(g, __S("[CREDITS_THANKS]"), BOARD_WIDTH / 2, 530, FONT_HOUSEOFTERROR16, Color::White, DrawStringJustification::DS_ALIGN_CENTER);
 }
 
 //0x435A90
@@ -1576,75 +1576,75 @@ void CreditScreen::KeyChar(SexyChar theChar)
     if (mCreditsPaused || !mApp->mDebugKeysEnabled)
         return;
 
-    if (theChar == _S('1'))
+    if (theChar == __S('1'))
     {
         CreditScreen::JumpToFrame(CreditsPhase::CREDITS_MAIN1, 0.0f);
     }
-    else if (theChar == _S('2'))
+    else if (theChar == __S('2'))
     {
         CreditScreen::JumpToFrame(CreditsPhase::CREDITS_MAIN1, 128.0f);
     }
-    else if (theChar == _S('3'))
+    else if (theChar == __S('3'))
     {
         CreditScreen::JumpToFrame(CreditsPhase::CREDITS_MAIN1, 144.0f);
     }
-    else if (theChar == _S('4'))
+    else if (theChar == __S('4'))
     {
         CreditScreen::JumpToFrame(CreditsPhase::CREDITS_MAIN1, 272.0f);
     }
-    else if (theChar == _S('5'))
+    else if (theChar == __S('5'))
     {
         CreditScreen::JumpToFrame(CreditsPhase::CREDITS_MAIN1, 304.0f);
     }
-    else if (theChar == _S('6'))
+    else if (theChar == __S('6'))
     {
         CreditScreen::JumpToFrame(CreditsPhase::CREDITS_MAIN1, 340.0f);
     }
-    else if (theChar == _S('7'))
+    else if (theChar == __S('7'))
     {
         CreditScreen::JumpToFrame(CreditsPhase::CREDITS_MAIN1, 368.0f);
     }
-    else if (theChar == _S('q'))
+    else if (theChar == __S('q'))
     {
         CreditScreen::JumpToFrame(CreditsPhase::CREDITS_MAIN2, 0.0f);
     }
-    else if (theChar == _S('w'))
+    else if (theChar == __S('w'))
     {
         CreditScreen::JumpToFrame(CreditsPhase::CREDITS_MAIN2, 124.0f);
     }
-    else if (theChar == _S('e'))
+    else if (theChar == __S('e'))
     {
         CreditScreen::JumpToFrame(CreditsPhase::CREDITS_MAIN2, 188.0f);
     }
-    else if (theChar == _S('r'))
+    else if (theChar == __S('r'))
     {
         CreditScreen::JumpToFrame(CreditsPhase::CREDITS_MAIN2, 248.0f);
     }
-    else if (theChar == _S('t'))
+    else if (theChar == __S('t'))
     {
         CreditScreen::JumpToFrame(CreditsPhase::CREDITS_MAIN2, 320.0f);
     }
-    else if (theChar == _S('a'))
+    else if (theChar == __S('a'))
     {
         CreditScreen::JumpToFrame(CreditsPhase::CREDITS_MAIN3, 0.0f);
     }
-    else if (theChar == _S('s'))
+    else if (theChar == __S('s'))
     {
         CreditScreen::JumpToFrame(CreditsPhase::CREDITS_MAIN3, 124.0f);
     }
-    else if (theChar == _S('d'))
+    else if (theChar == __S('d'))
     {
         CreditScreen::JumpToFrame(CreditsPhase::CREDITS_MAIN3, 216.0f);
     }
-    else if (theChar == _S('f'))
+    else if (theChar == __S('f'))
     {
         CreditScreen::JumpToFrame(CreditsPhase::CREDITS_MAIN3, 240.0f);
     }
-    else if (theChar == _S('g'))
+    else if (theChar == __S('g'))
     {
         CreditScreen::JumpToFrame(CreditsPhase::CREDITS_MAIN3, 324.0f);
     }
-    else if (theChar == _S('n'))
+    else if (theChar == __S('n'))
     {
         mDontSync = !mDontSync;
     }
@@ -1664,10 +1664,10 @@ void CreditScreen::PauseCredits()
 
     if (mApp->LawnMessageBox(
         Dialogs::DIALOG_MESSAGE, 
-        _S("[CREDITS_PAUSE_HEADER]"), 
-        _S("[CREDITS_PAUSE_BODY]"), 
-        _S("[CREDITS_RESUME_BUTTON]"), 
-        _S("[MAIN_MENU_BUTTON]"), 
+        __S("[CREDITS_PAUSE_HEADER]"), 
+        __S("[CREDITS_PAUSE_BODY]"), 
+        __S("[CREDITS_RESUME_BUTTON]"), 
+        __S("[MAIN_MENU_BUTTON]"), 
         Dialog::BUTTONS_YES_NO) == Dialog::ID_NO)
     {
         mApp->KillCreditScreen();

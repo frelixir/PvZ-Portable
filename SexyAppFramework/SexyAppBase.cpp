@@ -170,7 +170,7 @@ SexyAppBase::SexyAppBase()
 	mTimeLoaded = SDL_GetTicks();
 	mSEHOccured = false;
 	mProdName = "Product";
-	mTitle = _S("SexyApp");
+	mTitle = __S("SexyApp");
 	mShutdown = false;
 	mExitToTop = false;
 	mWidth = 640;
@@ -394,11 +394,11 @@ SexyAppBase::~SexyAppBase()
 					showedMsgBox = true;
 					int aResult = MessageBox(NULL,
 									GetString("HARDWARE_ACCEL_SWITCHED_ON", 
-															_S("Hardware Acceleration was switched on during this session.\r\n")
-															_S("If this resulted in slower performance, it should be switched off.\r\n")
-															_S("Would you like to keep Hardware Acceleration switched on?")).c_str(),
-									(StringToSexyString(mCompanyName) + _S(" ") +
-									 GetString("HARDWARE_ACCEL_CONFIRMATION", _S("Hardware Acceleration Confirmation"))).c_str(),
+															__S("Hardware Acceleration was switched on during this session.\r\n")
+															__S("If this resulted in slower performance, it should be switched off.\r\n")
+															__S("Would you like to keep Hardware Acceleration switched on?")).c_str(),
+									(StringToSexyString(mCompanyName) + __S(" ") +
+									 GetString("HARDWARE_ACCEL_CONFIRMATION", __S("Hardware Acceleration Confirmation"))).c_str(),
 									MB_YESNO | MB_ICONQUESTION);
 
 					//mDDInterface->mIs3D = aResult == IDYES ? true : false;
@@ -418,11 +418,11 @@ SexyAppBase::~SexyAppBase()
 	{
 		int aResult = MessageBox(NULL, 
 						GetString("HARDWARE_ACCEL_NOT_WORKING", 
-									_S("Hardware Acceleration may not have been working correctly during this session.\r\n")
-									_S("If you noticed graphics problems, you may want to turn off Hardware Acceleration.\r\n")
-									_S("Would you like to keep Hardware Acceleration switched on?")).c_str(),
-						(StringToSexyString(mCompanyName) + _S(" ") +
-						 GetString("HARDWARE_ACCEL_CONFIRMATION", _S("Hardware Acceleration Confirmation"))).c_str(),
+									__S("Hardware Acceleration may not have been working correctly during this session.\r\n")
+									__S("If you noticed graphics problems, you may want to turn off Hardware Acceleration.\r\n")
+									__S("Would you like to keep Hardware Acceleration switched on?")).c_str(),
+						(StringToSexyString(mCompanyName) + __S(" ") +
+						 GetString("HARDWARE_ACCEL_CONFIRMATION", __S("Hardware Acceleration Confirmation"))).c_str(),
 						MB_YESNO | MB_ICONQUESTION);
 
 		if (aResult==IDNO)
@@ -1436,18 +1436,18 @@ void SexyAppBase::DumpProgramInfo()
 		sprintf(aStr, "%d x %d<BR>%s bytes", aMemoryImage->mWidth, aMemoryImage->mHeight, CommaSeperate(aMemorySize).c_str());
 		aDumpStream << "<TD ALIGN=RIGHT>" << aStr << "</TD>" << std::endl;
 
-		aDumpStream << "<TD>" << SexyStringToString(((aBitsMemory != 0) ? _S("mBits<BR>") + CommaSeperate(aBitsMemory) : _S("&nbsp;"))) << "</TD>" << std::endl;	
-		aDumpStream << "<TD>" << SexyStringToString(((aPalletizedMemory != 0) ? _S("Palletized<BR>") + CommaSeperate(aPalletizedMemory) : _S("&nbsp;"))) << "</TD>" << std::endl;				
-		aDumpStream << "<TD>" << SexyStringToString(((aSurfaceMemory != 0) ? _S("DDSurface<BR>") + CommaSeperate(aSurfaceMemory) : _S("&nbsp;"))) << "</TD>" << std::endl;		
-		aDumpStream << "<TD>" << SexyStringToString(((aMemoryImage->mD3DData!=NULL) ? _S("Texture<BR>") + StringToSexyString(aTextureFormatName) + _S("<BR>") + CommaSeperate(aTextureMemory) : _S("&nbsp;"))) << "</TD>" << std::endl;
+		aDumpStream << "<TD>" << SexyStringToString(((aBitsMemory != 0) ? __S("mBits<BR>") + CommaSeperate(aBitsMemory) : __S("&nbsp;"))) << "</TD>" << std::endl;	
+		aDumpStream << "<TD>" << SexyStringToString(((aPalletizedMemory != 0) ? __S("Palletized<BR>") + CommaSeperate(aPalletizedMemory) : __S("&nbsp;"))) << "</TD>" << std::endl;				
+		aDumpStream << "<TD>" << SexyStringToString(((aSurfaceMemory != 0) ? __S("DDSurface<BR>") + CommaSeperate(aSurfaceMemory) : __S("&nbsp;"))) << "</TD>" << std::endl;		
+		aDumpStream << "<TD>" << SexyStringToString(((aMemoryImage->mD3DData!=NULL) ? __S("Texture<BR>") + StringToSexyString(aTextureFormatName) + __S("<BR>") + CommaSeperate(aTextureMemory) : __S("&nbsp;"))) << "</TD>" << std::endl;
 
-		aDumpStream << "<TD>" << SexyStringToString(((aMemoryImage->mIsVolatile) ? _S("Volatile") : _S("&nbsp;"))) << "</TD>" << std::endl;
-		aDumpStream << "<TD>" << SexyStringToString(((aMemoryImage->mForcedMode) ? _S("Forced") : _S("&nbsp;"))) << "</TD>" << std::endl;		
-		aDumpStream << "<TD>" << SexyStringToString(((aMemoryImage->mHasAlpha) ? _S("HasAlpha") : _S("&nbsp;"))) << "</TD>" << std::endl;
-		aDumpStream << "<TD>" << SexyStringToString(((aMemoryImage->mHasTrans) ? _S("HasTrans") : _S("&nbsp;"))) << "</TD>" << std::endl;
-		aDumpStream << "<TD>" << SexyStringToString(((aNativeAlphaMemory != 0) ? _S("NativeAlpha<BR>") + CommaSeperate(aNativeAlphaMemory) : _S("&nbsp;"))) << "</TD>" << std::endl;
-		aDumpStream << "<TD>" << SexyStringToString(((aRLAlphaMemory != 0) ? _S("RLAlpha<BR>") + CommaSeperate(aRLAlphaMemory) : _S("&nbsp;"))) << "</TD>" << std::endl;
-		aDumpStream << "<TD>" << SexyStringToString(((aRLAdditiveMemory != 0) ? _S("RLAdditive<BR>") + CommaSeperate(aRLAdditiveMemory) : _S("&nbsp;"))) << "</TD>" << std::endl;
+		aDumpStream << "<TD>" << SexyStringToString(((aMemoryImage->mIsVolatile) ? __S("Volatile") : __S("&nbsp;"))) << "</TD>" << std::endl;
+		aDumpStream << "<TD>" << SexyStringToString(((aMemoryImage->mForcedMode) ? __S("Forced") : __S("&nbsp;"))) << "</TD>" << std::endl;		
+		aDumpStream << "<TD>" << SexyStringToString(((aMemoryImage->mHasAlpha) ? __S("HasAlpha") : __S("&nbsp;"))) << "</TD>" << std::endl;
+		aDumpStream << "<TD>" << SexyStringToString(((aMemoryImage->mHasTrans) ? __S("HasTrans") : __S("&nbsp;"))) << "</TD>" << std::endl;
+		aDumpStream << "<TD>" << SexyStringToString(((aNativeAlphaMemory != 0) ? __S("NativeAlpha<BR>") + CommaSeperate(aNativeAlphaMemory) : __S("&nbsp;"))) << "</TD>" << std::endl;
+		aDumpStream << "<TD>" << SexyStringToString(((aRLAlphaMemory != 0) ? __S("RLAlpha<BR>") + CommaSeperate(aRLAlphaMemory) : __S("&nbsp;"))) << "</TD>" << std::endl;
+		aDumpStream << "<TD>" << SexyStringToString(((aRLAdditiveMemory != 0) ? __S("RLAdditive<BR>") + CommaSeperate(aRLAdditiveMemory) : __S("&nbsp;"))) << "</TD>" << std::endl;
 		aDumpStream << "<TD>" << (aMemoryImage->mFilePath.empty()? "&nbsp;":aMemoryImage->mFilePath) << "</TD>" << std::endl;
 
 		aDumpStream << "</TR>" << std::endl;
@@ -2416,7 +2416,7 @@ void SexyAppBase::Redraw(Rect* theClipRect)
 			{
 				if (mForceWindowed)
 				{
-					Popup(GetString("PLEASE_SET_COLOR_DEPTH", _S("Please set your desktop color depth to 16 bit."))); 
+					Popup(GetString("PLEASE_SET_COLOR_DEPTH", __S("Please set your desktop color depth to 16 bit."))); 
 					Shutdown();
 					return;
 				}
@@ -2516,7 +2516,7 @@ static void CalculateFPS()
 
 		Graphics aDrawG(gFPSImage);
 		aDrawG.SetFont(&aFont);
-		SexyString aFPS = StrFormat(_S("FPS: %d"), gFPSDisplay);
+		SexyString aFPS = StrFormat(__S("FPS: %d"), gFPSDisplay);
 		aDrawG.SetColor(0x000000);
 		aDrawG.FillRect(0,0,gFPSImage->GetWidth(),gFPSImage->GetHeight());
 		aDrawG.SetColor(0xFFFFFF);
@@ -2546,7 +2546,7 @@ static void FPSDrawCoords(int theX, int theY)
 
 	Graphics aDrawG(gFPSImage);
 	aDrawG.SetFont(&aFont);
-	SexyString aFPS = StrFormat(_S("%d,%d"),theX,theY);
+	SexyString aFPS = StrFormat(__S("%d,%d"),theX,theY);
 	aDrawG.SetColor(0x000000);
 	aDrawG.FillRect(0,0,gFPSImage->GetWidth(),gFPSImage->GetHeight());
 	aDrawG.SetColor(0xFFFFFF);
@@ -2589,7 +2589,7 @@ static void CalculateDemoTimeLeft()
 	int aMinutes = (aTotalSeconds/60)%60;
 	int anHours = (aTotalSeconds/3600);
 
-	SexyString aFPS = StrFormat(_S("%02d:%02d:%02d"), anHours,aMinutes,aSeconds);
+	SexyString aFPS = StrFormat(__S("%02d:%02d:%02d"), anHours,aMinutes,aSeconds);
 	aDrawG.SetColor(0x000000);
 	aDrawG.FillRect(0,0,gDemoTimeLeftImage->GetWidth(),gDemoTimeLeftImage->GetHeight());
 	aDrawG.SetColor(0xFFFFFF);
@@ -2764,9 +2764,9 @@ bool SexyAppBase::DrawDirtyStuff()
 		{
 			uint32_t aTickNow = GetTickCount();
 
-			OutputDebugString(StrFormat(_S("Theoretical FPS: %d\r\n"), (int) (mFPSCount * 1000 / mFPSTime)).c_str());
-			OutputDebugString(StrFormat(_S("Actual      FPS: %d\r\n"), (mFPSFlipCount * 1000) / max((aTickNow - mFPSStartTick), 1)).c_str());
-			OutputDebugString(StrFormat(_S("Dirty Rate     : %d\r\n"), (mFPSDirtyCount * 1000) / max((aTickNow - mFPSStartTick), 1)).c_str());
+			OutputDebugString(StrFormat(__S("Theoretical FPS: %d\r\n"), (int) (mFPSCount * 1000 / mFPSTime)).c_str());
+			OutputDebugString(StrFormat(__S("Actual      FPS: %d\r\n"), (mFPSFlipCount * 1000) / max((aTickNow - mFPSStartTick), 1)).c_str());
+			OutputDebugString(StrFormat(__S("Dirty Rate     : %d\r\n"), (mFPSDirtyCount * 1000) / max((aTickNow - mFPSStartTick), 1)).c_str());
 
 			mFPSTime = 0;
 			mFPSCount = 0;
@@ -2903,7 +2903,7 @@ void SexyAppBase::Popup(const std::string& theString)
 	BeginPopup();
 	if (!mShutdown)
 		printf("FATAL ERROR\n===\n%s\n", theString.c_str());
-		//::MessageBoxA(mHWnd, theString.c_str(), SexyStringToString(GetString("FATAL_ERROR", _S("FATAL ERROR"))).c_str(), MB_APPLMODAL | MB_ICONSTOP);
+		//::MessageBoxA(mHWnd, theString.c_str(), SexyStringToString(GetString("FATAL_ERROR", __S("FATAL ERROR"))).c_str(), MB_APPLMODAL | MB_ICONSTOP);
 	EndPopup();
 }
 
@@ -2918,7 +2918,7 @@ void SexyAppBase::Popup(const std::wstring& theString)
 	BeginPopup();
 	if (!mShutdown)
 		wprintf(L"FATAL ERROR\n===\n%s\n", theString.c_str());
-		//::MessageBoxW(mHWnd, theString.c_str(), SexyStringToWString(GetString("FATAL_ERROR", _S("FATAL ERROR"))).c_str(), MB_APPLMODAL | MB_ICONSTOP);
+		//::MessageBoxW(mHWnd, theString.c_str(), SexyStringToWString(GetString("FATAL_ERROR", __S("FATAL ERROR"))).c_str(), MB_APPLMODAL | MB_ICONSTOP);
 	EndPopup();
 }
 
@@ -2997,7 +2997,7 @@ static INT_PTR CALLBACK MarkerListDialogProc(HWND hwnd, UINT msg, WPARAM wParam,
 				int aMinutes = (aTotalSeconds/60)%60;
 				int anHours = (aTotalSeconds/3600);
 
-				SexyString aStr = StrFormat(_S("%s (%02d:%02d:%02d)"), anItr->first.c_str(),anHours,aMinutes,aSeconds);				
+				SexyString aStr = StrFormat(__S("%s (%02d:%02d:%02d)"), anItr->first.c_str(),anHours,aMinutes,aSeconds);				
 				GetTextExtentPoint32(hDCListBox, aStr.c_str(), aStr.length(), &aSize);
 				dwExtent = std::max (aSize.cx + tm.tmAveCharWidth, (LONG)dwExtent);
 				SendMessage(aListBox, LB_SETHORIZONTALEXTENT, dwExtent, 0);
@@ -4437,7 +4437,7 @@ void SexyAppBase::MakeWindow()
 		// @Patoke: removed unnecessary if checks for win98
 		mHWnd = CreateWindowEx(
 			0,
-			_S("MainWindow"),
+			__S("MainWindow"),
 			SexyStringToStringFast(mTitle).c_str(),
 			aWindowStyle,
 			aPlaceX,
@@ -4464,7 +4464,7 @@ void SexyAppBase::MakeWindow()
 
 		mHWnd = CreateWindowEx(
 			WS_EX_TOPMOST,
-			_S("MainWindow"),
+			__S("MainWindow"),
 			SexyStringToStringFast(mTitle).c_str(),
 			WS_POPUP | WS_VISIBLE,
 			0,
@@ -4514,13 +4514,13 @@ void SexyAppBase::MakeWindow()
 
 	/*
 	if (mDDInterface->mD3DTester!=NULL && mDDInterface->mD3DTester->ResultsChanged())
-		RegistryEraseValue(_S("Is3D"));
+		RegistryEraseValue(__S("Is3D"));
 
 	if ((mIsWindowed) && (aResult == DDInterface::RESULT_INVALID_COLORDEPTH))
 	{
 		if (mForceWindowed)
 		{
-			Popup(GetString("PLEASE_SET_COLOR_DEPTH", _S("Please set your desktop color depth to 16 bit.")));
+			Popup(GetString("PLEASE_SET_COLOR_DEPTH", __S("Please set your desktop color depth to 16 bit.")));
 			DoExit(1);
 		}
 		else
@@ -4551,7 +4551,7 @@ void SexyAppBase::MakeWindow()
 		}
 		else
 		{
-			Popup(GetString("FAILED_INIT_DIRECTDRAW", _S("Failed to initialize DirectDraw: ")) + StringToSexyString(DDInterface::ResultToString(aResult) + " " + mDDInterface->mErrorString));
+			Popup(GetString("FAILED_INIT_DIRECTDRAW", __S("Failed to initialize DirectDraw: ")) + StringToSexyString(DDInterface::ResultToString(aResult) + " " + mDDInterface->mErrorString));
 			DoExit(1);
 		}
 	}
@@ -4939,7 +4939,7 @@ bool SexyAppBase::Process(bool allowSleep)
 	/*DWORD aTimeNow = GetTickCount();
 	if (aTimeNow - aLastCheck >= 10000)
 	{
-		OutputDebugString(StrFormat(_S("FUpdates: %d\n"), aNumCalls).c_str());
+		OutputDebugString(StrFormat(__S("FUpdates: %d\n"), aNumCalls).c_str());
 		aLastCheck = aTimeNow;
 		aNumCalls = 0;
 	}*/
@@ -5425,7 +5425,7 @@ bool SexyAppBase::LoadProperties(const std::string& theFileName, bool required, 
 			return true;
 		else
 		{
-			Popup(GetString("UNABLE_OPEN_PROPERTIES", _S("Unable to open properties file ")) + StringToSexyString(theFileName));
+			Popup(GetString("UNABLE_OPEN_PROPERTIES", __S("Unable to open properties file ")) + StringToSexyString(theFileName));
 			return false;
 		}
 	}
@@ -5433,7 +5433,7 @@ bool SexyAppBase::LoadProperties(const std::string& theFileName, bool required, 
 	{
 		//if (!CheckSignature(aBuffer, theFileName))
 		//{
-			//Popup(GetString("PROPERTIES_SIG_FAILED", _S("Signature check failed on ")) + StringToSexyString(theFileName + "'"));
+			//Popup(GetString("PROPERTIES_SIG_FAILED", __S("Signature check failed on ")) + StringToSexyString(theFileName + "'"));
 			//return false;
 		//}
 	}
@@ -5540,7 +5540,7 @@ SexyString SexyAppBase::GetString(const std::string& theId)
 	if (anItr != mStringProperties.end())	
 		return WStringToSexyString(anItr->second);
 	else
-		return _S("");
+		return __S("");
 }
 
 SexyString SexyAppBase::GetString(const std::string& theId, const SexyString& theDefault)
@@ -5756,7 +5756,7 @@ void SexyAppBase::HandleCmdLineParam(const std::string& theParamName, const std:
 	}
 	else
 	{
-		Popup(GetString("INVALID_COMMANDLINE_PARAM", _S("Invalid command line parameter: ")) + StringToSexyString(theParamName));
+		Popup(GetString("INVALID_COMMANDLINE_PARAM", __S("Invalid command line parameter: ")) + StringToSexyString(theParamName));
 		DoExit(0);
 	}
 }
@@ -5806,8 +5806,8 @@ void SexyAppBase::Init()
 	if (gDDrawDLL==NULL || gDSoundDLL==NULL)
 	{
 		MessageBox(NULL, 
-						GetString("APP_REQUIRES_DIRECTX", _S("This application requires DirectX to run.  You can get DirectX at http://www.microsoft.com/directx")).c_str(),
-						GetString("YOU_NEED_DIRECTX", _S("You need DirectX")).c_str(), 
+						GetString("APP_REQUIRES_DIRECTX", __S("This application requires DirectX to run.  You can get DirectX at http://www.microsoft.com/directx")).c_str(),
+						GetString("YOU_NEED_DIRECTX", __S("You need DirectX")).c_str(), 
 						MB_OK | MB_ICONERROR);
 		DoExit(0);
 	}
@@ -5868,11 +5868,11 @@ void SexyAppBase::Init()
 	*/
 
 	// Create a message we can use to talk to ourselves inter-process
-	//mNotifyGameMessage = RegisterWindowMessage((_S("Notify") + StringToSexyString(mProdName)).c_str());
+	//mNotifyGameMessage = RegisterWindowMessage((__S("Notify") + StringToSexyString(mProdName)).c_str());
 
 	// Create a globally unique mutex
 	/*
-	mMutex = CreateMutex(NULL, TRUE, (StringToSexyString(mProdName) + _S("Mutex")).c_str());
+	mMutex = CreateMutex(NULL, TRUE, (StringToSexyString(mProdName) + __S("Mutex")).c_str());
 	if (::GetLastError() == ERROR_ALREADY_EXISTS)
 		HandleGameAlreadyRunning();
 	*/
@@ -5906,7 +5906,7 @@ void SexyAppBase::Init()
 	wc.hIcon = ::LoadIconA(gHInstance, "IDI_MAIN_ICON");
 	wc.hInstance = gHInstance;
 	wc.lpfnWndProc = WindowProc;
-	wc.lpszClassName = _S("MainWindow");
+	wc.lpszClassName = __S("MainWindow");
 	wc.lpszMenuName = NULL;	
 	bool success = RegisterClass(&wc) != 0;
 	(void)success; // success unused in release mode
@@ -5920,7 +5920,7 @@ void SexyAppBase::Init()
 	wc.hIcon = NULL;
 	wc.hInstance = gHInstance;
 	wc.lpfnWndProc = WindowProc;
-	wc.lpszClassName = _S("InvisWindow");
+	wc.lpszClassName = __S("InvisWindow");
 	wc.lpszMenuName = NULL;	
 	success = RegisterClass(&wc) != 0;
 	DBG_ASSERTE(success);
@@ -5929,7 +5929,7 @@ void SexyAppBase::Init()
 	/*
 	mInvisHWnd = CreateWindowEx(
 			0,
-			_S("InvisWindow"),
+			__S("InvisWindow"),
 			mTitle.c_str(),
 			0,
 			0,
@@ -6761,7 +6761,7 @@ void SexyAppBase::Set3DAcclerated(bool is3D, bool reinit)
 		}
 		else if (aResult != DDInterface::RESULT_OK)
 		{
-			Popup(GetString("FAILED_INIT_DIRECTDRAW", _S("Failed to initialize DirectDraw: ")) + StringToSexyString(DDInterface::ResultToString(aResult) + " " + mDDInterface->mErrorString));
+			Popup(GetString("FAILED_INIT_DIRECTDRAW", __S("Failed to initialize DirectDraw: ")) + StringToSexyString(DDInterface::ResultToString(aResult) + " " + mDDInterface->mErrorString));
 			DoExit(1);
 		}
 

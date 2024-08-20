@@ -572,7 +572,7 @@ bool DefinitionReadCompiledFile(const SexyString& theCompiledFilePath, DefMap* t
 {
     PerfTimer aTimer;
     aTimer.Start();
-    PFILE* pFile = p_fopen(theCompiledFilePath.c_str(), _S("rb"));
+    PFILE* pFile = p_fopen(theCompiledFilePath.c_str(), __S("rb"));
     if (!pFile) return false;
 
     p_fseek(pFile, 0, 2);  // 将读取位置的指针移动至文件末尾
@@ -583,7 +583,7 @@ bool DefinitionReadCompiledFile(const SexyString& theCompiledFilePath, DefMap* t
     bool aReadCompressedFailed = p_fread(aCompressedBuffer, sizeof(char), aCompressedSize, pFile) != aCompressedSize;
     p_fclose(pFile);  // 关闭资源文件流并释放 pFile 占用的内存
     if (aReadCompressedFailed) { // 判断是否读取成功
-        TodTrace(_S("Failed to read compiled file: %s\n"), theCompiledFilePath.c_str());
+        TodTrace(__S("Failed to read compiled file: %s\n"), theCompiledFilePath.c_str());
         free(aCompressedBuffer);
         return false;
     }
@@ -595,7 +595,7 @@ bool DefinitionReadCompiledFile(const SexyString& theCompiledFilePath, DefMap* t
     
     uint aDefHash = DefinitionCalcHash(theDefMap);  // 计算 CRC 校验值，后将用于检测数据的完整性
     if (aUncompressedSize < theDefMap->mDefSize + sizeof(uint)) {
-        TodTrace(_S("Compiled file size too small: %s\n"), theCompiledFilePath.c_str());
+        TodTrace(__S("Compiled file size too small: %s\n"), theCompiledFilePath.c_str());
         delete[] (char *)aUncompressedBuffer;
         return false;
     } // 检测解压数据的长度是否足够“定义数据 + 一个校验值记录数据”的长度
@@ -606,7 +606,7 @@ bool DefinitionReadCompiledFile(const SexyString& theCompiledFilePath, DefMap* t
     uint aCashHash;
     SMemR(aBufferPtr, &aCashHash, sizeof(uint));  // 读取记录的 CRC 校验值
     if (aCashHash != aDefHash) {
-        TodTrace(_S("Compiled file schema wrong: %s\n"), theCompiledFilePath.c_str());
+        TodTrace(__S("Compiled file schema wrong: %s\n"), theCompiledFilePath.c_str());
         delete[] (char *)aUncompressedBuffer;
         return false;
     } // 判断校验值是否一致，若不一致则说明数据发生错误
@@ -621,7 +621,7 @@ bool DefinitionReadCompiledFile(const SexyString& theCompiledFilePath, DefMap* t
     size_t aReadMemSize = (uintptr_t)aBufferPtr - (uintptr_t)aUncompressedBuffer;
     delete[] (char *)aUncompressedBuffer;
     if (aResult && aReadMemSize != aUncompressedSize) {
-        TodTrace(_S("Compiled file wrong size: %s\n"), theCompiledFilePath.c_str());
+        TodTrace(__S("Compiled file wrong size: %s\n"), theCompiledFilePath.c_str());
         return false;
     }
     return aResult;
@@ -630,12 +630,12 @@ bool DefinitionReadCompiledFile(const SexyString& theCompiledFilePath, DefMap* t
 //0x444770
 SexyString DefinitionGetCompiledFilePathFromXMLFilePath(const SexyString& theXMLFilePath)
 {
-    return _S("compiled/") + theXMLFilePath + _S(".compiled");
+    return __S("compiled/") + theXMLFilePath + __S(".compiled");
 }
 
 bool IsFileInPakFile(const SexyString& theFilePath)
 {
-    PFILE* pFile = p_fopen(theFilePath.c_str(), _S("rb"));
+    PFILE* pFile = p_fopen(theFilePath.c_str(), __S("rb"));
     bool aIsInPak = pFile && !pFile->mFP;  // 通过 mPakRecordMap.find 找到并打开的文件，其 mFP 为空指针（因为不是从实际文件中打开的）
     if (pFile)
     {
@@ -658,7 +658,7 @@ bool DefinitionIsCompiled(const SexyString& theXMLFilePath)
 
     if (stat(theXMLFilePath.c_str(), &attr) != 0)
     {
-        TodTrace(_S("Can't file source file to compile '%s'"), theXMLFilePath.c_str());
+        TodTrace(__S("Can't file source file to compile '%s'"), theXMLFilePath.c_str());
         return false;
     }
     time_t aXMLFileTime = attr.st_mtime;
@@ -674,7 +674,7 @@ bool DefinitionIsCompiled(const SexyString& theXMLFilePath)
     
     if (!GetFileAttributesEx(theXMLFilePath.c_str(), _GET_FILEEX_INFO_LEVELS::GetFileExInfoStandard, &lpFileData))
     {
-        TodTrace(_S("Can't file source file to compile '%s'"), theXMLFilePath.c_str());
+        TodTrace(__S("Can't file source file to compile '%s'"), theXMLFilePath.c_str());
         return false;
     }
     else
@@ -753,7 +753,7 @@ bool DefinitionReadIntField(XMLParser* theXmlParser, int* theValue)
     if (!DefinitionReadXMLString(theXmlParser, aStringValue))
         return false;
 
-    if (sexysscanf(aStringValue.c_str(), _S("%d"), theValue) == 1)
+    if (sexysscanf(aStringValue.c_str(), __S("%d"), theValue) == 1)
         return true;
 
     DefinitionXmlError(theXmlParser, "Can't parse int value '%s'", aStringValue.c_str());
@@ -766,7 +766,7 @@ bool DefinitionReadFloatField(XMLParser* theXmlParser, float* theValue)
     if (!DefinitionReadXMLString(theXmlParser, aStringValue))
         return false;
 
-    if (sexysscanf(aStringValue.c_str(), _S("%f"), theValue) == 1)
+    if (sexysscanf(aStringValue.c_str(), __S("%f"), theValue) == 1)
         return true;
 
     DefinitionXmlError(theXmlParser, "Can't parse float value '%s'", aStringValue.c_str());
@@ -810,7 +810,7 @@ bool DefinitionReadVector2Field(XMLParser* theXmlParser, SexyVector2* theValue)
     if (!DefinitionReadXMLString(theXmlParser, aStringValue))
         return false;
 
-    if (sexysscanf(aStringValue.c_str(), _S("%f %f"), theValue) == 1)
+    if (sexysscanf(aStringValue.c_str(), __S("%f %f"), theValue) == 1)
         return true;
 
     DefinitionXmlError(theXmlParser, "Can't parse vector2 value '%s'", aStringValue.c_str());
@@ -1054,7 +1054,7 @@ bool DefinitionReadFlagField(XMLParser* theXmlParser, const SexyString& theEleme
         return false;
 
     float aFlag; // This was obviously a bug, the casting is wrong, although amusingly it just woks since it's just a bit
-    if (sexysscanf(aStringValue.c_str(), _S("%f %f"), &aFlag) != 1)
+    if (sexysscanf(aStringValue.c_str(), __S("%f %f"), &aFlag) != 1)
     {
         DefinitionXmlError(theXmlParser, "Can't parse int value '%s'", aStringValue.c_str());
         return false;
@@ -1308,7 +1308,7 @@ bool DefinitionCompileFile(const SexyString theXMLFilePath, const SexyString& th
     XMLParser aXMLParser = XMLParser();
     if (!aXMLParser.OpenFile(theXMLFilePath))
     {
-        TodTrace(_S("XML file not found: %s\n"), theXMLFilePath.c_str());
+        TodTrace(__S("XML file not found: %s\n"), theXMLFilePath.c_str());
         return false;
     }
     else if (!DefinitionLoadMap(&aXMLParser, theDefMap, theDefinition))
@@ -1322,11 +1322,11 @@ bool DefinitionCompileAndLoad(const SexyString& theXMLFilePath, DefMap* theDefMa
 {
 #ifdef _DEBUG  // 内测版执行的内容
 
-    TodHesitationTrace(_S("predef"));
+    TodHesitationTrace(__S("predef"));
     SexyString aCompiledFilePath = DefinitionGetCompiledFilePathFromXMLFilePath(theXMLFilePath);
     if (DefinitionIsCompiled(theXMLFilePath) && DefinitionReadCompiledFile(aCompiledFilePath, theDefMap, theDefinition))
     {
-        TodHesitationTrace(_S("loaded %s"), aCompiledFilePath.c_str());
+        TodHesitationTrace(__S("loaded %s"), aCompiledFilePath.c_str());
         return true;
     }
     else
@@ -1334,8 +1334,8 @@ bool DefinitionCompileAndLoad(const SexyString& theXMLFilePath, DefMap* theDefMa
         PerfTimer aTimer;
         aTimer.Start();
         bool aResult = DefinitionCompileFile(theXMLFilePath, aCompiledFilePath, theDefMap, theDefinition);
-        TodTrace(_S("compile %d ms:'%s'"), (int)aTimer.GetDuration(), aCompiledFilePath.c_str());
-        TodHesitationTrace(_S("compiled %s"), aCompiledFilePath.c_str());
+        TodTrace(__S("compile %d ms:'%s'"), (int)aTimer.GetDuration(), aCompiledFilePath.c_str());
+        TodHesitationTrace(__S("compiled %s"), aCompiledFilePath.c_str());
         return aResult;
     }
 
@@ -1345,7 +1345,7 @@ bool DefinitionCompileAndLoad(const SexyString& theXMLFilePath, DefMap* theDefMa
     if (DefinitionReadCompiledFile(aCompiledFilePath, theDefMap, theDefinition))
         return true;
 
-    TodErrorMessageBox(StrFormat(_S("missing resource %s"), aCompiledFilePath.c_str()).c_str(), _S("Error"));
+    TodErrorMessageBox(StrFormat(__S("missing resource %s"), aCompiledFilePath.c_str()).c_str(), __S("Error"));
     exit(0);
     
 #endif

@@ -413,7 +413,7 @@ int SDLSoundManager::GetNumSounds()
 
 int SDLSoundManager::FindFreeChannel()
 {
-	uint64_t aTick = SDL_GetTicks64();
+	uint64_t aTick = SDL_GetTicks();
 	if (aTick-mLastReleaseTick > 1000)
 	{
 		ReleaseFreeChannels();

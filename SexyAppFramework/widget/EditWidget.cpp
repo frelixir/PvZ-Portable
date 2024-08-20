@@ -269,11 +269,11 @@ void EditWidget::EnforceMaxPixels()
 
 bool EditWidget::IsPartOfWord(SexyChar theChar)
 {
-	return (((theChar >= _S('A')) && (theChar <= _S('Z'))) ||
-			((theChar >= _S('a')) && (theChar <= _S('z'))) ||
-			((theChar >= _S('0')) && (theChar <= _S('9'))) ||
+	return (((theChar >= __S('A')) && (theChar <= __S('Z'))) ||
+			((theChar >= __S('a')) && (theChar <= __S('z'))) ||
+			((theChar >= __S('0')) && (theChar <= __S('9'))) ||
 			(((unsigned int)theChar >= (unsigned int)(L'?')) && ((unsigned int)theChar <= (unsigned int)(L'ÿ'))) ||
-			(theChar == _S('_')));
+			(theChar == __S('_')));
 }
 
 void EditWidget::ProcessKey(KeyCode theKey, SexyChar theChar)

@@ -10,10 +10,10 @@
 using namespace Sexy;
 
 
-SexyString Sexy::DIALOG_YES_STRING				= _S("YES");
-SexyString Sexy::DIALOG_NO_STRING				= _S("NO");
-SexyString Sexy::DIALOG_OK_STRING				= _S("OK");
-SexyString Sexy::DIALOG_CANCEL_STRING			= _S("CANCEL");
+SexyString Sexy::DIALOG_YES_STRING				= __S("YES");
+SexyString Sexy::DIALOG_NO_STRING				= __S("NO");
+SexyString Sexy::DIALOG_OK_STRING				= __S("OK");
+SexyString Sexy::DIALOG_CANCEL_STRING			= __S("CANCEL");
 
 static int gDialogColors[][3] = 
 {{255, 255, 255},
