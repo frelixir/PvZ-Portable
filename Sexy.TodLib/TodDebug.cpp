@@ -1,5 +1,6 @@
 #include <time.h>
 #include <inttypes.h>
+#include <stdarg.h>
 #include <stdexcept>
 #include "TodDebug.h"
 #include "TodCommon.h"
