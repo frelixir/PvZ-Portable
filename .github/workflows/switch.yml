@@ -11,6 +11,8 @@ jobs:
 
       - name: Run CMake and compile
         run: |
+          ls $DEVKITPRO
+          sudo ls $DEVKITPRO
           mkdir build
           cd build
           aarch64-none-elf-cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS_RELEASE=-O1
