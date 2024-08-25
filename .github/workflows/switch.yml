@@ -9,16 +9,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Run CMake and compile
+      - name: Compile libopenmpt for Switch
+        shell: bash
         run: |
-          sudo apt update
-          sudo apt install -y libopenmpt-dev libmpg123-dev libvorbis-dev libogg-dev
+          source $DEVKITPRO/switchvars.sh
+          git clone https://github.com/OpenMPT/openmpt
+          cd openmpt
+          make CONFIG=gcc SHARED_LIB=0 DYNLINK=0 EXAMPLES=0 OPENMPT123=0 TEST=0 PREFIX=$PORTLIBS_PREFIX install
+
+      - name: Run CMake and compile
+        shell: bash
+        run: |
           source $DEVKITPRO/switchvars.sh
           mkdir build
           cd build
           aarch64-none-elf-cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS_RELEASE=-O1
           make
-        shell: bash
 
       - name: Upload .nro artifact
         uses: actions/upload-artifact@v4
