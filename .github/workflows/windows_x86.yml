@@ -4,6 +4,10 @@ on: [push]
 jobs:
   build:
     runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+
     steps:
       - uses: actions/checkout@v4
 
@@ -12,8 +16,8 @@ jobs:
           msystem: MINGW32
           update: true
           install: >-
-            mingw-w64-i686-cmake
-            mingw-w64-i686-make
+            git
+            make
             mingw-w64-i686-zlib
             mingw-w64-i686-gcc
             mingw-w64-i686-SDL2
@@ -26,7 +30,6 @@ jobs:
             mingw-w64-i686-libpng
 
       - name: Install dependencies and compile
-        shell: msys2 {0}
         run: |
           mkdir build
           cd build
