@@ -31,11 +31,11 @@ jobs:
 
       - name: Compile
         run: |
-          cmake -DCMAKE_BUILD_TYPE=Release -G Ninja -B build
+          cmake -G Ninja -B build
           cmake --build build
 
       - name: Upload .exe artifact
         uses: actions/upload-artifact@v4
         with:
-          name: re-plants-vs-zombies.exe
-          path: ./build/re-plants-vs-zombies.exe
+          name: re-plants-vs-zombies
+          path: ./build
