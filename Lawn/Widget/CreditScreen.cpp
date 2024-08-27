@@ -378,12 +378,15 @@ void CreditScreen::RemovedFromManager(WidgetManager* theWidgetManager)
 void CreditScreen::PreLoadCredits()
 {
     mPreloaded = true;
-	TodLoadResources("DelayLoad_Background1");
-	TodLoadResources("DelayLoad_Background2");
-	TodLoadResources("DelayLoad_Background3");
-	TodLoadResources("DelayLoad_Background4");
-	TodLoadResources("DelayLoad_Background5");
-	TodLoadResources("DelayLoad_Background6");
+	mLoadedResourceNames.push_back("DelayLoad_Background1");
+	mLoadedResourceNames.push_back("DelayLoad_Background2");
+	mLoadedResourceNames.push_back("DelayLoad_Background3");
+	mLoadedResourceNames.push_back("DelayLoad_Background4");
+	mLoadedResourceNames.push_back("DelayLoad_Background5");
+	mLoadedResourceNames.push_back("DelayLoad_Background6");
+
+	for (std::string& resource : mLoadedResourceNames)
+		TodLoadResources(resource.c_str());
 
     ReanimatorEnsureDefinitionLoaded(ReanimationType::REANIM_CREDITS_MAIN, true);
     ReanimationPreload(ReanimationType::REANIM_CREDITS_MAIN);

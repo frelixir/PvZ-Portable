@@ -33,8 +33,10 @@ public:
 	Widget*					mTabPrev;
 	Widget*					mTabNext;	
 
-	static bool				mWriteColoredString;  // controls whether ^color^ works in calls to WriteString
-	
+	static bool				mWriteColoredString;  // controls whether ^color^ works in calls to WriteString	
+
+	std::vector<std::string> mLoadedResourceNames; // headshot2017: for unloading resources on destructor
+
 	void					WidgetRemovedHelper();
 
 public:

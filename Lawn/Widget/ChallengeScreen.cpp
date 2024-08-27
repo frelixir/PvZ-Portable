@@ -100,7 +100,10 @@ ChallengeScreen::ChallengeScreen(LawnApp* theApp, ChallengePage thePage)
 	mUnlockState = UNLOCK_OFF;
 	mUnlockChallengeIndex = -1;
 	mUnlockStateCounter = 0;
-	TodLoadResources("DelayLoad_ChallengeScreen");
+	mLoadedResourceNames.push_back("DelayLoad_ChallengeScreen");
+
+	for (std::string& resource : mLoadedResourceNames)
+		TodLoadResources(resource.c_str());
 
 	mBackButton = MakeNewButton(ChallengeScreen::ChallengeScreen_Back, this, __S("[BACK_TO_MENU]"), nullptr, Sexy::IMAGE_SEEDCHOOSER_BUTTON2, 
 		Sexy::IMAGE_SEEDCHOOSER_BUTTON2_GLOW, Sexy::IMAGE_SEEDCHOOSER_BUTTON2_GLOW);

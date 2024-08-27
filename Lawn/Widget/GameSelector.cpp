@@ -41,7 +41,10 @@ GameSelectorOverlay::GameSelectorOverlay(GameSelector* theGameSelector)
 GameSelector::GameSelector(LawnApp* theApp)
 {
 	TodHesitationTrace("pregameselector");
-	TodLoadResources("DelayLoad_Zombatar");
+	mLoadedResourceNames.push_back("DelayLoad_Zombatar");
+
+	for (std::string& resource : mLoadedResourceNames)
+		TodLoadResources(resource.c_str());
 
 	mApp = theApp;
 	mLevel = 1;

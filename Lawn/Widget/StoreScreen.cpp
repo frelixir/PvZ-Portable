@@ -66,7 +66,9 @@ StoreScreen::StoreScreen(LawnApp* theApp) : Dialog(nullptr, nullptr, DIALOG_STOR
     mEasyBuyingCheat = false;
     mWaitForDialog = false;
     mCoins.DataArrayInitialize(1024U, "coins");
-    TodLoadResources("DelayLoad_Store");
+    mLoadedResourceNames.push_back("DelayLoad_Store");
+	for (std::string& resource : mLoadedResourceNames)
+		TodLoadResources(resource.c_str());
     Resize(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
     mPottedPlantSpecs.InitializePottedPlant(SEED_MARIGOLD);
     mPottedPlantSpecs.mDrawVariation = (DrawVariation)RandRangeInt(VARIATION_MARIGOLD_WHITE, VARIATION_MARIGOLD_LIGHT_GREEN);

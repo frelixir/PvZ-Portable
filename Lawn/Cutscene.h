@@ -34,6 +34,8 @@ public:
     ChallengeScreen*            mUpsellChallengeScreen;           //+0x44 【推销插入的小游戏界面】
     bool                        mPreUpdatingBoard;                //+0x48 【场景布置阶段的关卡预更新】
 
+	std::vector<std::string> mLoadedResourceNames;
+
 public:
     CutScene();
     ~CutScene();

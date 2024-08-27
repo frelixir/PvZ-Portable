@@ -844,36 +844,36 @@ void Board::LoadBackgroundImages()
 	switch (mBackground)
 	{
 	case BackgroundType::BACKGROUND_1_DAY:
-		TodLoadResources("DelayLoad_Background1");
+		mLoadedResourceNames.push_back("DelayLoad_Background1");
 		if ((mApp->IsAdventureMode() && mLevel <= 4) || mApp->mGameMode == GameMode::GAMEMODE_CHALLENGE_RESODDED)
 		{
-			TodLoadResources("DelayLoad_BackgroundUnsodded");
+			mLoadedResourceNames.push_back("DelayLoad_BackgroundUnsodded");
 		}
 		break;
 
 	case BackgroundType::BACKGROUND_2_NIGHT:
-		TodLoadResources("DelayLoad_Background2");
+		mLoadedResourceNames.push_back("DelayLoad_Background2");
 		break;
 
 	case BackgroundType::BACKGROUND_3_POOL:
-		TodLoadResources("DelayLoad_Background3");
+		mLoadedResourceNames.push_back("DelayLoad_Background3");
 		break;
 
 	case BackgroundType::BACKGROUND_4_FOG:
-		TodLoadResources("DelayLoad_Background4");
+		mLoadedResourceNames.push_back("DelayLoad_Background4");
 		break;
 
 	case BackgroundType::BACKGROUND_5_ROOF:
-		TodLoadResources("DelayLoad_Background5");
+		mLoadedResourceNames.push_back("DelayLoad_Background5");
 		break;
 
 	case BackgroundType::BACKGROUND_6_BOSS:
-		TodLoadResources("DelayLoad_Background6");
+		mLoadedResourceNames.push_back("DelayLoad_Background6");
 		break;
 
 	case BackgroundType::BACKGROUND_GREENHOUSE:
-		TodLoadResources("DelayLoad_GreenHouseGarden");
-		TodLoadResources("DelayLoad_GreenHouseOverlay");
+		mLoadedResourceNames.push_back("DelayLoad_GreenHouseGarden");
+		mLoadedResourceNames.push_back("DelayLoad_GreenHouseOverlay");
 		break;
 
 	case BackgroundType::BACKGROUND_TREEOFWISDOM:
@@ -881,18 +881,21 @@ void Board::LoadBackgroundImages()
 		break;
 
 	case BackgroundType::BACKGROUND_ZOMBIQUARIUM:
-		TodLoadResources("DelayLoad_Zombiquarium");
-		TodLoadResources("DelayLoad_GreenHouseOverlay");
+		mLoadedResourceNames.push_back("DelayLoad_Zombiquarium");
+		mLoadedResourceNames.push_back("DelayLoad_GreenHouseOverlay");
 		break;
 
 	case BackgroundType::BACKGROUND_MUSHROOM_GARDEN:
-		TodLoadResources("DelayLoad_MushroomGarden");
+		mLoadedResourceNames.push_back("DelayLoad_MushroomGarden");
 		break;
 
 	default:
 		TOD_ASSERT();
 		break;
 	}
+
+	for (std::string& resource : mLoadedResourceNames)
+		TodLoadResources(resource.c_str());
 }
 
 //0x40A550

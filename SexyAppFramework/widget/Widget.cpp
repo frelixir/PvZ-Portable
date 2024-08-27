@@ -5,6 +5,7 @@
 #include "graphics/Image.h"
 #include "SexyAppBase.h"
 #include "misc/Debug.h"
+#include "misc/ResourceManager.h"
 
 using namespace Sexy;
 
@@ -28,6 +29,9 @@ Widget::Widget()
 
 Widget::~Widget()
 {	
+	for (std::string& resource : mLoadedResourceNames)
+		gSexyAppBase->mResourceManager->DeleteResources(resource.c_str());
+
 	mColors.clear();
 }
 

@@ -26,9 +26,12 @@ AlmanacDialog::AlmanacDialog(LawnApp* theApp) : LawnDialog(theApp, DIALOG_ALMANA
 	mZombie = nullptr;
 	mPlant = nullptr;
 	mDrawStandardBack = false;
-	TodLoadResources("DelayLoad_Almanac");
+	mLoadedResourceNames.push_back("DelayLoad_Almanac");
 	for (size_t i = 0; i < LENGTH(mZombiePerfTest); i++) mZombiePerfTest[i] = nullptr;
 	LawnDialog::Resize(0, 0, BOARD_WIDTH, BOARD_HEIGHT);
+
+	for (std::string& resource : mLoadedResourceNames)
+		TodLoadResources(resource.c_str());
 
 	mCloseButton = new GameButton(AlmanacDialog::ALMANAC_BUTTON_CLOSE);
 	mCloseButton->SetLabel(__S("[CLOSE_BUTTON]"));

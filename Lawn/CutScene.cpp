@@ -105,6 +105,9 @@ CutScene::~CutScene()
 		delete mUpsellChallengeScreen;
 	}
 	mApp->mMuteSoundsForCutscene = false;
+
+	for (std::string& resource : mLoadedResourceNames)
+		mApp->mResourceManager->DeleteResources(resource.c_str());
 }
 
 //0x439140
@@ -328,6 +331,8 @@ void CutScene::PreloadResources()
 	}
 	mPreloaded = true;
 
+	mLoadedResourceNames.clear();
+
 	PerfTimer aTimer;
 	aTimer.Start();
 
@@ -425,10 +430,10 @@ void CutScene::PreloadResources()
 	}
 	if (mApp->mGameMode == GameMode::GAMEMODE_UPSELL)
 	{
-		TodLoadResources("DelayLoad_Background3");
-		TodLoadResources("DelayLoad_Background4");
-		TodLoadResources("DelayLoad_Background5");
-		TodLoadResources("DelayLoad_ChallengeScreen");
+		mLoadedResourceNames.push_back("DelayLoad_Background3");
+		mLoadedResourceNames.push_back("DelayLoad_Background4");
+		mLoadedResourceNames.push_back("DelayLoad_Background5");
+		mLoadedResourceNames.push_back("DelayLoad_ChallengeScreen");
 		Zombie::PreloadZombieResources(ZombieType::ZOMBIE_NORMAL);
 		Zombie::PreloadZombieResources(ZombieType::ZOMBIE_TRAFFIC_CONE);
 		Zombie::PreloadZombieResources(ZombieType::ZOMBIE_PAIL);
@@ -459,8 +464,8 @@ void CutScene::PreloadResources()
 	}
 	if (mApp->mGameMode == GameMode::GAMEMODE_INTRO)
 	{
-		TodLoadResources("DelayLoad_Background3");
-		TodLoadResources("DelayLoad_Credits");
+		mLoadedResourceNames.push_back("DelayLoad_Background3");
+		mLoadedResourceNames.push_back("DelayLoad_Credits");
 		Zombie::PreloadZombieResources(ZombieType::ZOMBIE_NORMAL);
 		Zombie::PreloadZombieResources(ZombieType::ZOMBIE_TRAFFIC_CONE);
 		Zombie::PreloadZombieResources(ZombieType::ZOMBIE_PAIL);
@@ -474,6 +479,9 @@ void CutScene::PreloadResources()
 		Plant::PreloadPlantResources(SeedType::SEED_SPIKEWEED);
 		Plant::PreloadPlantResources(SeedType::SEED_TANGLEKELP);
 	}
+
+	for (std::string& resource : mLoadedResourceNames)
+		TodLoadResources(resource.c_str());
 
 	PlaceStreetZombies();
 

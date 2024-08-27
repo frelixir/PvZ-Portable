@@ -25,14 +25,15 @@ AwardScreen::AwardScreen(LawnApp* theApp, AwardType theAwardType, bool theShowin
 	mFadeInCounter = 180;
 	mAwardType = theAwardType;
 	mShowingAchievements = theShowingAchievements;
-	TodLoadResources("DelayLoad_AwardScreen");
+
+	mLoadedResourceNames.push_back("DelayLoad_AwardScreen");
 
 	// @Patoke: implemented
 	if (!theShowingAchievements) {
 		mShowingAchievements = false;
 	}
 	else {
-		TodLoadResources("DelayLoad_ChallengeScreen");
+		mLoadedResourceNames.push_back("DelayLoad_ChallengeScreen");
 
 		for (int i = 0; i < MAX_ACHIEVEMENTS; i++) {
 			if (mApp->mPlayerInfo->mEarnedAchievements[i] && !mApp->mPlayerInfo->mShownAchievements[i]) {
@@ -64,49 +65,52 @@ AwardScreen::AwardScreen(LawnApp* theApp, AwardType theAwardType, bool theShowin
 	int aLevel = mApp->mPlayerInfo->GetLevel();
 	if (mAwardType == AWARD_CREDITS_ZOMBIENOTE)
 	{
-		TodLoadResources("DelayLoad_Background6");
-		TodLoadResources("DelayLoad_ZombieNote");
-		TodLoadResources("DelayLoad_Credits");
+		mLoadedResourceNames.push_back("DelayLoad_Background6");
+		mLoadedResourceNames.push_back("DelayLoad_ZombieNote");
+		mLoadedResourceNames.push_back("DelayLoad_Credits");
 	}
 	else if (mAwardType == AWARD_HELP_ZOMBIENOTE)
 	{
-		TodLoadResources("DelayLoad_Background1");
-		TodLoadResources("DelayLoad_ZombieNote");
-		TodLoadResources("DelayLoad_ZombieNoteHelp");
+		mLoadedResourceNames.push_back("DelayLoad_Background1");
+		mLoadedResourceNames.push_back("DelayLoad_ZombieNote");
+		mLoadedResourceNames.push_back("DelayLoad_ZombieNoteHelp");
 	}
 	else if (mApp->IsAdventureMode())
 	{
 		if (aLevel == 10)
 		{
-			TodLoadResources("DelayLoad_Background1");
-			TodLoadResources("DelayLoad_ZombieNote");
-			TodLoadResources("DelayLoad_ZombieNote1");
+			mLoadedResourceNames.push_back("DelayLoad_Background1");
+			mLoadedResourceNames.push_back("DelayLoad_ZombieNote");
+			mLoadedResourceNames.push_back("DelayLoad_ZombieNote1");
 		}
 		else if (aLevel == 20)
 		{
-			TodLoadResources("DelayLoad_Background2");
-			TodLoadResources("DelayLoad_ZombieNote");
-			TodLoadResources("DelayLoad_ZombieNote2");
+			mLoadedResourceNames.push_back("DelayLoad_Background2");
+			mLoadedResourceNames.push_back("DelayLoad_ZombieNote");
+			mLoadedResourceNames.push_back("DelayLoad_ZombieNote2");
 		}
 		else if (aLevel == 30)
 		{
-			TodLoadResources("DelayLoad_Background1");
-			TodLoadResources("DelayLoad_ZombieNote");
-			TodLoadResources("DelayLoad_ZombieNote3");
+			mLoadedResourceNames.push_back("DelayLoad_Background1");
+			mLoadedResourceNames.push_back("DelayLoad_ZombieNote");
+			mLoadedResourceNames.push_back("DelayLoad_ZombieNote3");
 		}
 		else if (aLevel == 40)
 		{
-			TodLoadResources("DelayLoad_Background2");
-			TodLoadResources("DelayLoad_ZombieNote");
-			TodLoadResources("DelayLoad_ZombieNote4");
+			mLoadedResourceNames.push_back("DelayLoad_Background2");
+			mLoadedResourceNames.push_back("DelayLoad_ZombieNote");
+			mLoadedResourceNames.push_back("DelayLoad_ZombieNote4");
 		}
 		else if (aLevel == 50)
 		{
-			TodLoadResources("DelayLoad_Background1");
-			TodLoadResources("DelayLoad_ZombieNote");
-			TodLoadResources("DelayLoad_ZombieFinalNote");
+			mLoadedResourceNames.push_back("DelayLoad_Background1");
+			mLoadedResourceNames.push_back("DelayLoad_ZombieNote");
+			mLoadedResourceNames.push_back("DelayLoad_ZombieFinalNote");
 		}
 	}
+
+	for (std::string& resource : mLoadedResourceNames)
+		TodLoadResources(resource.c_str());
 
 	mStartButton = new GameButton(AwardScreen::AwardScreen_Start);
 	mStartButton->mButtonImage = Sexy::IMAGE_SEEDCHOOSER_BUTTON;

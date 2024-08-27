@@ -2,6 +2,8 @@
 #define __ZENGARDEN_H__
 
 #include "../ConstEnums.h"
+#include <vector>
+#include <string>
 #include <stdint.h>
 
 #define ZEN_MAX_GRIDSIZE_X 8
@@ -36,6 +38,7 @@ public:
     LawnApp*                mApp;           //+0x0
     Board*                  mBoard;         //+0x4
     GardenType              mGardenType;    //+0x8
+	std::vector<std::string> mLoadedResourceNames;
 
 public:
     ZenGarden();

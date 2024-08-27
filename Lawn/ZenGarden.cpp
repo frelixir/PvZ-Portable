@@ -1875,24 +1875,30 @@ void ZenGarden::GotoNextGarden()
         return;
     }
 
+	for (std::string& resource : mLoadedResourceNames)
+		mApp->mResourceManager->DeleteResources(resource.c_str());
+
     if (mBoard->mBackground == BackgroundType::BACKGROUND_MUSHROOM_GARDEN)
     {
-        TodLoadResources("DelayLoad_MushroomGarden");
+        mLoadedResourceNames.push_back("DelayLoad_MushroomGarden");
     }
     else if (mBoard->mBackground == BackgroundType::BACKGROUND_GREENHOUSE)
     {
-        TodLoadResources("DelayLoad_GreenHouseGarden");
-        TodLoadResources("DelayLoad_GreenHouseOverlay");
+        mLoadedResourceNames.push_back("DelayLoad_GreenHouseGarden");
+        mLoadedResourceNames.push_back("DelayLoad_GreenHouseOverlay");
     }
     else if (mBoard->mBackground == BackgroundType::BACKGROUND_ZOMBIQUARIUM)
     {
-        TodLoadResources("DelayLoad_Zombiquarium");
-        TodLoadResources("DelayLoad_GreenHouseOverlay");
+        mLoadedResourceNames.push_back("DelayLoad_Zombiquarium");
+        mLoadedResourceNames.push_back("DelayLoad_GreenHouseOverlay");
     }
     else
     {
         TOD_ASSERT();
     }
+
+	for (std::string& resource : mLoadedResourceNames)
+		TodLoadResources(resource.c_str());
 
     if ((mBoard->mBackground == BackgroundType::BACKGROUND_MUSHROOM_GARDEN || mBoard->mBackground == BackgroundType::BACKGROUND_ZOMBIQUARIUM))
     {
