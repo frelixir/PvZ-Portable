@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(re-plants-vs-zombies)
+project(re-plants-vs-zombies LANGUAGES C CXX ASM)
 
 file(GLOB SOURCES
 	*.cpp
@@ -39,6 +39,9 @@ if(NINTENDO_SWITCH)
 	)
 elseif(NINTENDO_3DS)
 	set(NO_GLEW ON)
+	ctr_add_shader_library(colored ${CMAKE_CURRENT_SOURCE_DIR}/SexyAppFramework/platform/3ds/graphics/colored.v.pica)
+	ctr_add_shader_library(textured ${CMAKE_CURRENT_SOURCE_DIR}/SexyAppFramework/platform/3ds/graphics/textured.v.pica)
+	dkp_add_embedded_binary_library(shaders colored textured)
 	list(APPEND SOURCES
 		${CMAKE_CURRENT_SOURCE_DIR}/SexyAppFramework/platform/3ds/graphics/Window.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SexyAppFramework/platform/3ds/graphics/GLInterface.cpp
@@ -115,7 +118,7 @@ elseif (NINTENDO_SWITCH)
 		ICON ${CMAKE_CURRENT_SOURCE_DIR}/icon-switch.jpg
 	)
 elseif (NINTENDO_3DS)
-	#target_link_libraries(re-plants-vs-zombies citro3d ctru)
+	target_link_libraries(re-plants-vs-zombies shaders)
 else()
 	target_link_libraries(re-plants-vs-zombies GL)
 endif()
