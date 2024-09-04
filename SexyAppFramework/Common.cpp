@@ -41,9 +41,9 @@ void Sexy::PrintF(const char *text, ...)
 
 #if defined(__SWITCH__) || defined(__3DS__)
 	svcOutputDebugString(str, sizeof(str));
-#else
-	fprintf(stdout, "%s", str);
 #endif
+
+	fprintf(stdout, "%s", str);
 }
 
 int Sexy::Rand()
