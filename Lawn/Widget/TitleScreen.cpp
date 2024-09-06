@@ -2,6 +2,7 @@
 #include "widget/HyperlinkWidget.h"
 #include "widget/WidgetManager.h"
 #include "graphics/ImageFont.h"
+#include "sound/SoundManager.h"
 #include "../../LawnApp.h"
 #include "../../Resources.h"
 #include "../../Sexy.TodLib/TodCommon.h"
@@ -58,8 +59,8 @@ TitleScreen::~TitleScreen()
 	FONT_BRIANNETOD16 = mApp->mResourceManager->LoadFont("FONT_BRIANNETOD16");
 	IMAGE_PVZ_LOGO = mApp->mResourceManager->LoadImage("IMAGE_PVZ_LOGO");
 	IMAGE_REANIM_SODROLLCAP = mApp->mResourceManager->LoadImage("IMAGE_REANIM_SODROLLCAP");
-	SOUND_LOADINGBAR_FLOWER = mApp->mResourceManager->LoadSound("SOUND_LOADINGBAR_FLOWER");
-	SOUND_BUTTONCLICK = mApp->mResourceManager->LoadSound("SOUND_BUTTONCLICK");
+	SOUND_LOADINGBAR_FLOWER = mApp->mSoundManager->LoadSound(mApp->mSoundManager->GetFreeSoundId(), "sounds/loadingbar_flower");
+	SOUND_BUTTONCLICK = mApp->mSoundManager->LoadSound(mApp->mSoundManager->GetFreeSoundId(), "sounds/buttonclick");
 }
 
 void TitleScreen::DrawToPreload(Graphics* g)
