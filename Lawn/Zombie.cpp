@@ -2229,7 +2229,30 @@ void Zombie::UpdateZombieGargantuar()
     }
 
 #ifdef DO_FIX_BUGS
-    bool doSmash = FindZombieTarget();
+    bool doSmash = false;
+    if (mMindControlled)
+    {
+        doSmash = FindZombieTarget() != nullptr;
+    }
+    else if (FindPlantTarget(ZombieAttackType::ATTACKTYPE_CHEW))
+    {
+        doSmash = true;
+    }
+    else if (mApp->IsScaryPotterLevel())
+    {
+        int aGridX = mBoard->PixelToGridX(mPosX, mPosY);
+        if (mBoard->GetScaryPotAt(aGridX, mRow))
+        {
+            doSmash = true;
+        }
+    }
+    else if (mApp->IsIZombieLevel())
+    {
+        if (mBoard->mChallenge->IZombieGetBrainTarget(this))
+        {
+            doSmash = true;
+        }
+    }
 #else
     bool doSmash = false;
     if (FindPlantTarget(ZombieAttackType::ATTACKTYPE_CHEW))
