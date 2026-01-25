@@ -1165,33 +1165,18 @@ int Graphics::WriteString(const SexyString& theString, int theX, int theY, int t
 	return aXOffset;
 }
 
-static int WriteWordWrappedHelper(Graphics *g, const SexyString& theString, int theX, int theY, int theWidth, int theJustification, bool drawString, int theOffset, int theLength, int theOldColor, int theMaxChars)
+static int WriteWordWrappedHelper(Graphics *g, const SexyString& theString, int theX, int theY, int theWidth, int theJustification, bool drawString, int theOffset, int theLength, int theOldColor)
 {
-	if (theOffset+theLength>theMaxChars)
-	{
-		theLength = theMaxChars-theOffset;
-		if (theLength<=0)
-			return -1;
-	}
-
 	return g->WriteString(theString,theX,theY,theWidth,theJustification,drawString,theOffset,theLength,theOldColor);
 }
 
-int	Graphics::WriteWordWrapped(const Rect& theRect, const SexyString& theLine, int theLineSpacing, int theJustification, int *theMaxWidth, int theMaxChars, int *theLastWidth)
+int	Graphics::WriteWordWrapped(const Rect& theRect, const SexyString& theLine, int theLineSpacing, int theJustification)
 {
-	/*
-	正式版中，删去了 *theLastWidth、theMaxChars 和 *theMaxWidth 参数，此函数形式可以简化为：
-	Graphics::自动换行的文字绘制(const Rect& 绘制区域矩形, const SexyString& 文字内容, int 行距 = -1, int 对齐方式 = -1)
-	当行距 = -1 时，默认使用 Graphics 字体的行距；对齐方式：左对齐 = -1；居中对齐 = 0；右对齐 = 1。
-	*/
 	Color anOrigColor = GetColor();
 	int anOrigColorInt = anOrigColor.ToInt();  //颜色数组转化为 ARGB 颜色
 	if ((anOrigColorInt&0xFF000000)==0xFF000000)
 		anOrigColorInt &= ~0xFF000000;
 	
-	if (theMaxChars<0)
-		theMaxChars = (int)theLine.length();
-
 	_Font* aFont = GetFont();						
 
 	//纵向偏移值 = 字体主要部分高度 - 字体内边距
@@ -1208,13 +1193,6 @@ int	Graphics::WriteWordWrapped(const Rect& theRect, const SexyString& theLine, i
 	SexyChar aPrevChar = 0;
 	int aSpacePos = -1;
 	int aMaxWidth = 0;
-	int anIndentX = 0;
-
-	if (theLastWidth != NULL)
-	{
-		anIndentX = *theLastWidth;
-		aCurWidth = anIndentX;
-	}
 
 	while (aCurPos < theLine.length())
 	{	
@@ -1249,20 +1227,14 @@ int	Graphics::WriteWordWrapped(const Rect& theRect, const SexyString& theLine, i
 			int aWrittenWidth;
 			if(aSpacePos!=-1)
 			{
-				//aWrittenWidth = WriteWordWrappedHelper(this, theLine, theRect.mX, theRect.mY + aYOffset, theRect.mWidth, 
-				//	theJustification, true, aLineStartPos, aSpacePos-aLineStartPos, anOrigColorInt, theMaxChars);
-
 				int aPhysPos = theRect.mY + aYOffset + mTransY;
 				if ((aPhysPos >= mClipRect.mY) && (aPhysPos < mClipRect.mY + mClipRect.mHeight + theLineSpacing))
 				{
-					WriteWordWrappedHelper(this, theLine, theRect.mX + anIndentX, theRect.mY + aYOffset, theRect.mWidth, 
-						theJustification, true, aLineStartPos, aSpacePos-aLineStartPos, anOrigColorInt, theMaxChars);
-
-					/*WriteString(theLine, theRect.mX + anIndentX, theRect.mY + aYOffset, theRect.mWidth, 
-					theJustification, true, aLineStartPos, aSpacePos-aLineStartPos);*/
+					WriteWordWrappedHelper(this, theLine, theRect.mX, theRect.mY + aYOffset, theRect.mWidth, 
+						theJustification, true, aLineStartPos, aSpacePos-aLineStartPos, anOrigColorInt);
 				}
 
-				aWrittenWidth = aCurWidth + anIndentX;
+				aWrittenWidth = aCurWidth;
 
 				if (aWrittenWidth<0)
 					break;
@@ -1280,16 +1252,11 @@ int	Graphics::WriteWordWrapped(const Rect& theRect, const SexyString& theLine, i
 				if((int)aCurPos<aLineStartPos+1)
 					aCurPos++; // ensure at least one character gets written
 
-				aWrittenWidth = WriteWordWrappedHelper(this, theLine, theRect.mX + anIndentX, theRect.mY + aYOffset, theRect.mWidth, 
-					theJustification, true, aLineStartPos, aCurPos-aLineStartPos, anOrigColorInt, theMaxChars);
+				aWrittenWidth = WriteWordWrappedHelper(this, theLine, theRect.mX, theRect.mY + aYOffset, theRect.mWidth, 
+					theJustification, true, aLineStartPos, aCurPos-aLineStartPos, anOrigColorInt);
 
 				if (aWrittenWidth<0)
 					break;
-
-				if (theMaxWidth!=NULL && aWrittenWidth>*theMaxWidth)
-					*theMaxWidth = aWrittenWidth;
-				if (theLastWidth!=NULL)
-					*theLastWidth = aWrittenWidth;
 			}
 
 			if (aWrittenWidth > aMaxWidth)
@@ -1299,7 +1266,6 @@ int	Graphics::WriteWordWrapped(const Rect& theRect, const SexyString& theLine, i
 			aSpacePos = -1;
 			aCurWidth = 0;
 			aPrevChar = 0;
-			anIndentX = 0;
 			aYOffset += theLineSpacing;
 		}
 		else
@@ -1308,18 +1274,13 @@ int	Graphics::WriteWordWrapped(const Rect& theRect, const SexyString& theLine, i
 
 	if(aLineStartPos<(int)theLine.length()) // write the last piece
 	{
-		int aWrittenWidth = WriteWordWrappedHelper(this, theLine, theRect.mX + anIndentX, theRect.mY + aYOffset, theRect.mWidth, 
-			theJustification, true, aLineStartPos, theLine.length()-aLineStartPos, anOrigColorInt, theMaxChars);
+		int aWrittenWidth = WriteWordWrappedHelper(this, theLine, theRect.mX, theRect.mY + aYOffset, theRect.mWidth, 
+			theJustification, true, aLineStartPos, theLine.length()-aLineStartPos, anOrigColorInt);
 
 		if (aWrittenWidth>=0)
 		{
 			if (aWrittenWidth > aMaxWidth)
 				aMaxWidth = aWrittenWidth;
-
-			if (theMaxWidth!=NULL && aWrittenWidth>*theMaxWidth)
-				*theMaxWidth = aWrittenWidth;
-			if (theLastWidth!=NULL)
-				*theLastWidth = aWrittenWidth;
 
 			aYOffset += theLineSpacing;
 		}
@@ -1327,14 +1288,9 @@ int	Graphics::WriteWordWrapped(const Rect& theRect, const SexyString& theLine, i
 	else if (aCurChar == '\n')
 	{
 		aYOffset += theLineSpacing;
-		if (theLastWidth != NULL)
-			*theLastWidth = 0;
 	}
 
 	SetColor(anOrigColor);
-
-	if (theMaxWidth!=NULL)
-		*theMaxWidth = aMaxWidth;
 
 	//返回时，aYOffset 增量为 (行数 + 1) * 行距。以 aYOffset 减去末行多算的一次行距，再加上字体下沉部分的高度，得到文本底部的纵向偏移值，即文本区域高度。
 	return aYOffset + aFont->GetDescent() - theLineSpacing;
@@ -1345,20 +1301,19 @@ int	Graphics::DrawStringColor(const SexyString& theLine, int theX, int theY, int
 	return WriteString(theLine, theX, theY, -1, -1,true,0,-1,theOldColor);
 }
 
-int	Graphics::DrawStringWordWrapped(const SexyString& theLine, int theX, int theY, int theWrapWidth, int theLineSpacing, int theJustification, int *theMaxWidth)
+int	Graphics::DrawStringWordWrapped(const SexyString& theLine, int theX, int theY)
 {
-	/*这个函数在正式版中被删得只剩前三个参数了……*/
 	int aYOffset = mFont->GetAscent() - mFont->GetAscentPadding();
 
-	Rect aRect(theX,theY-aYOffset,theWrapWidth,0);
-	return WriteWordWrapped(aRect, theLine, theLineSpacing, theJustification, theMaxWidth);
+	Rect aRect(theX,theY-aYOffset,10000000,0);
+	return WriteWordWrapped(aRect, theLine, -1, -1);
 }
 
-int	Graphics::GetWordWrappedHeight(int theWidth, const SexyString& theLine, int theLineSpacing, int *theMaxWidth)
+int	Graphics::GetWordWrappedHeight(int theWidth, const SexyString& theLine, int theLineSpacing)
 {
 	Graphics aTestG;
 	aTestG.SetFont(mFont);
-	int aHeight = aTestG.WriteWordWrapped(Rect(0, 0, theWidth, 0), theLine, theLineSpacing, -1, theMaxWidth);	
+	int aHeight = aTestG.WriteWordWrapped(Rect(0, 0, theWidth, 0), theLine, theLineSpacing, -1);	
 
 	return aHeight;	
 }
