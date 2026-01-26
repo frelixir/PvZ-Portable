@@ -43,7 +43,8 @@ static void FixFileName(const char* theFileName, char* theUpperName)
 	if ((theFileName[0] != 0) && (theFileName[1] == ':'))
 	{
 		char aDir[256];
-		getcwd(aDir, 256);  // 取得当前工作路径
+		if (!getcwd(aDir, 256))  // 取得当前工作路径
+			aDir[0] = '\0';
 		int aLen = strlen(aDir);
 		aDir[aLen++] = '/';
 		aDir[aLen] = 0;

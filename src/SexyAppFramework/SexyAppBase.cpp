@@ -602,7 +602,7 @@ bool SexyAppBase::ReadDemoBuffer(std::string &theError)
 	AutoFile aCloseFile(aFP);
 
 	uint32_t aFileID;
-	fread(&aFileID, 4, 1, aFP);
+	if (fread(&aFileID, 4, 1, aFP) != 1) return false;
 
 	DBG_ASSERTE(aFileID == DEMO_FILE_ID);
 	if (aFileID != DEMO_FILE_ID)
@@ -613,17 +613,17 @@ bool SexyAppBase::ReadDemoBuffer(std::string &theError)
 
 
 	uint32_t aVersion;
-	fread(&aVersion, 4, 1, aFP);
+	if (fread(&aVersion, 4, 1, aFP) != 1) return false;
 	
-	fread(&mRandSeed, 4, 1, aFP);
+	if (fread(&mRandSeed, 4, 1, aFP) != 1) return false;
 	SRand(mRandSeed);
 
 	ushort aStrLen = 4;
-	fread(&aStrLen, 2, 1, aFP);
+	if (fread(&aStrLen, 2, 1, aFP) != 1) return false;
 	if (aStrLen > 255)
 		aStrLen = 255;
 	char aStr[256];
-	fread(aStr, 1, aStrLen, aFP);
+	if (fread(aStr, 1, aStrLen, aFP) != aStrLen) return false;
 	aStr[aStrLen] = '\0';
 
 	DBG_ASSERTE(mProductVersion == aStr);
@@ -643,7 +643,7 @@ bool SexyAppBase::ReadDemoBuffer(std::string &theError)
 	if (aVersion >= 2) 
 	{
 		int aSize;
-		fread(&aSize, 4, 1, aFP);
+		if (fread(&aSize, 4, 1, aFP) != 1) return false;
 		aBytesLeft -= 4;
 
 		if (aSize >= aBytesLeft)
@@ -655,7 +655,7 @@ bool SexyAppBase::ReadDemoBuffer(std::string &theError)
 		Buffer aMarkerBuffer;
 
 		aBuffer = new uchar[aSize];
-		fread(aBuffer, 1, aSize, aFP);
+		if (fread(aBuffer, 1, aSize, aFP) != (size_t)aSize) { delete [] aBuffer; return false; }
 		aMarkerBuffer.WriteBytes(aBuffer, aSize);
 		aMarkerBuffer.SeekFront();
 
@@ -681,7 +681,7 @@ bool SexyAppBase::ReadDemoBuffer(std::string &theError)
 	}
 
 	// Read demo commands
-	fread(&mDemoLength, 4, 1, aFP);
+	if (fread(&mDemoLength, 4, 1, aFP) != 1) return false;
 	aBytesLeft -= 4;
 	
 	if (aBytesLeft <= 0)
@@ -692,7 +692,7 @@ bool SexyAppBase::ReadDemoBuffer(std::string &theError)
 
 
 	aBuffer = new uchar[aBytesLeft];
-	fread(aBuffer, 1, aBytesLeft, aFP);		
+	if (fread(aBuffer, 1, aBytesLeft, aFP) != (size_t)aBytesLeft) { delete [] aBuffer; return false; }		
 
 	mDemoBuffer.WriteBytes(aBuffer, aBytesLeft);
 	mDemoBuffer.SeekFront();
@@ -5101,14 +5101,19 @@ void SexyAppBase::Init()
 
 	// Change directory
 	if (!ChangeDirHook(mChangeDirTo.c_str()))
-		chdir(mChangeDirTo.c_str());
+	{
+		int res = chdir(mChangeDirTo.c_str());
+		(void)res;
+	}
 
 	if (GetAppDataFolder().empty())
 	{
 		char aPath[512];
-		getcwd(aPath, 512);
-		strcat(aPath, "/savedata/");
-		SetAppDataFolder(aPath);
+		if (getcwd(aPath, 512))
+		{
+			strcat(aPath, "/savedata/");
+			SetAppDataFolder(aPath);
+		}
 	}
 
 	gPakInterface->AddPakFile("main.pak");

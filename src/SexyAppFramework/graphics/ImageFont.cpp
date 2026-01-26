@@ -1098,7 +1098,11 @@ bool FontData::LoadLegacy(Image* theFontImage, const std::string& theFontDescFil
 
 	// int aSpaceWidth = 0; // unused
 	//fscanf(aStream,"%d%d",&aFontLayer->mCharData[' '].mWidth,&aFontLayer->mAscent);
-	fscanf(aStream, "%d%d", &aFontLayer->GetCharData(' ')->mWidth, &aFontLayer->mAscent);
+	if (fscanf(aStream, "%d%d", &aFontLayer->GetCharData(' ')->mWidth, &aFontLayer->mAscent) != 2)
+	{
+		fclose(aStream);
+		return false;
+	}
 
 	while (!feof(aStream))
 	{
@@ -1106,7 +1110,8 @@ bool FontData::LoadLegacy(Image* theFontImage, const std::string& theFontDescFil
 		char aChar = 0;
 		int aWidth = 0;
 
-		fscanf(aStream, "%1s%d", aBuf, &aWidth);
+		if (fscanf(aStream, "%1s%d", aBuf, &aWidth) != 2)
+			break;
 		aChar = aBuf[0];
 
 

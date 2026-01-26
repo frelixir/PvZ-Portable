@@ -79,8 +79,7 @@ void regemu::SetRegFile(const std::string& fileName)
 	}
 
 	char aHeader[6];
-	fread(aHeader, 6, 1, f);
-	if (strncmp(aHeader, "REGEMU", 6))
+	if (fread(aHeader, 6, 1, f) != 1 || strncmp(aHeader, "REGEMU", 6))
 	{
 		printf("RegEmu: Can't read '%s': Invalid header\n", currFile.c_str());
 		fclose(f);
@@ -88,24 +87,24 @@ void regemu::SetRegFile(const std::string& fileName)
 	}
 
 	uint16_t aVersion;
-	fread(&aVersion, sizeof(uint16_t), 1, f);
+	if (fread(&aVersion, sizeof(uint16_t), 1, f) != 1) { fclose(f); return; }
 
 	uint32_t aNumKeys;
-	fread(&aNumKeys, sizeof(uint32_t), 1, f);
+	if (fread(&aNumKeys, sizeof(uint32_t), 1, f) != 1) { fclose(f); return; }
 
 	for (uint32_t i=0; i<aNumKeys; i++)
 	{
 		uint32_t aKeyNameLen;
 		char* aKeyName;
 
-		fread(&aKeyNameLen, sizeof(uint32_t), 1, f);
+		if (fread(&aKeyNameLen, sizeof(uint32_t), 1, f) != 1) { fclose(f); return; }
 		aKeyName = new char[aKeyNameLen];
-		fread(aKeyName, aKeyNameLen, 1, f);
+		if (fread(aKeyName, aKeyNameLen, 1, f) != 1) { delete[] aKeyName; fclose(f); return; }
 
 		registry[aKeyName] = {};
 
 		uint32_t aNumValues;
-		fread(&aNumValues, sizeof(uint32_t), 1, f);
+		if (fread(&aNumValues, sizeof(uint32_t), 1, f) != 1) { delete[] aKeyName; fclose(f); return; }
 
 		for (uint32_t j=0; j<aNumValues; j++)
 		{
@@ -113,14 +112,14 @@ void regemu::SetRegFile(const std::string& fileName)
 			uint32_t aValueNameLen;
 			char* aValueName;
 
-			fread(&aValueNameLen, sizeof(uint32_t), 1, f);
+			if (fread(&aValueNameLen, sizeof(uint32_t), 1, f) != 1) { delete[] aKeyName; fclose(f); return; }
 			aValueName = new char[aValueNameLen];
-			fread(aValueName, aValueNameLen, 1, f);
+			if (fread(aValueName, aValueNameLen, 1, f) != 1) { delete[] aKeyName; delete[] aValueName; fclose(f); return; }
 
-			fread(&value.mType, sizeof(uint32_t), 1, f);
-			fread(&value.mLength, sizeof(uint32_t), 1, f);
+			if (fread(&value.mType, sizeof(uint32_t), 1, f) != 1) { delete[] aKeyName; delete[] aValueName; fclose(f); return; }
+			if (fread(&value.mLength, sizeof(uint32_t), 1, f) != 1) { delete[] aKeyName; delete[] aValueName; fclose(f); return; }
 			value.mValue = new uint8_t[value.mLength];
-			fread(value.mValue, value.mLength, 1, f);
+			if (fread(value.mValue, value.mLength, 1, f) != 1) { delete[] aKeyName; delete[] aValueName; delete[] value.mValue; fclose(f); return; }
 
 			registry[aKeyName][aValueName] = value;
 
