@@ -51,7 +51,6 @@ public:
     bool                        mDrawnOnce;                     //+0x22C
     bool                        mGoToTreeNow;                   //+0x22D
     bool                        mPurchasedFullVersion;          //+0x22E
-    bool                        mTrialLockedWhenStoreOpened;    //+0x22F
 
 public:
     StoreScreen(LawnApp* theApp);

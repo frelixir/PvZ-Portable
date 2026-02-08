@@ -106,8 +106,6 @@ LawnApp::LawnApp()
 	mFullscreenBits = 32;
 	mAppCounter = 0;
 	mAppRandSeed = time(0);
-	mTrialType = TrialType::TRIALTYPE_NONE;
-	mDebugTrialLocked = false;
 	mMuteSoundsForCutscene = false;
 	mMusicVolume = 0.85;
 	mSfxVolume = 0.5525;
@@ -2421,8 +2419,6 @@ int LawnApp::GetSeedsAvailable()
 // GOTY @Patoke: 0x456FE0
 bool LawnApp::HasSeedType(SeedType theSeedType)
 {
-	if (IsTrialStageLocked() && theSeedType >= SeedType::SEED_JALAPENO)
-		return false;
 
 	/*  优化
 	if (theSeedType >= SeedType::SEED_GATLINGPEA && theSeedType <= SeedType::SEED_IMITATER)
@@ -2569,9 +2565,6 @@ bool LawnApp::CanShowStore()
 bool LawnApp::CanShowZenGarden()
 {
 	if (mPlayerInfo == nullptr)
-		return false;
-
-	if (IsTrialStageLocked())
 		return false;
 
 	return HasFinishedAdventure() || mPlayerInfo->mLevel >= 45;
@@ -3371,19 +3364,9 @@ void LawnApp::FinishZenGardenToturial()
 	PreNewGame(GameMode::GAMEMODE_ADVENTURE, false);
 }
 
-//0x455C90
-bool LawnApp::IsTrialStageLocked()
-{
-	if (mDebugTrialLocked)
-		return true;
-
-	return mTrialType == TrialType::TRIALTYPE_STAGELOCKED;
-}
-
 //0x455CC0
 void LawnApp::InitHook()
 {
-	mTrialType = TrialType::TRIALTYPE_NONE;
 }
 
 //0x455E10

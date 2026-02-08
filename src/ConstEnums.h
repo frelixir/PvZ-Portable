@@ -1154,11 +1154,6 @@ enum TodCurves : int
     CURVE_SIN_WAVE,             // 正弦曲线
     CURVE_EASE_SIN_WAVE         // 缓入缓出的正弦曲线
 };
-enum TrialType : int
-{
-    TRIALTYPE_NONE,
-    TRIALTYPE_STAGELOCKED
-};
 enum TutorialState : int
 {
     TUTORIAL_OFF = 0,

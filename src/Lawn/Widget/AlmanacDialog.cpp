@@ -567,10 +567,6 @@ bool AlmanacDialog::ZombieHasSilhouette(ZombieType theZombieType)
 // GOTY @Patoke: 0x404C50
 bool AlmanacDialog::ZombieIsShown(ZombieType theZombieType)
 {
-	// 试玩模式下，仅展示潜水僵尸及其之前出现的僵尸
-	if (mApp->IsTrialStageLocked() && theZombieType > ZombieType::ZOMBIE_SNORKEL)
-		return false;
-
 	// 对于雪人僵尸，要求其可以在刷怪中出现（已经到达或完成冒险模式二周目 4-10 关卡），
 	// 或已得知其存在但未解锁其形象（已经完成冒险模式一周目 4-10 关卡，但未到达二周目 4-10 关卡）
 	if (theZombieType == ZombieType::ZOMBIE_YETI)

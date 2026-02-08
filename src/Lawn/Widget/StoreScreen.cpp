@@ -124,7 +124,6 @@ StoreScreen::StoreScreen(LawnApp* theApp) : Dialog(nullptr, nullptr, DIALOG_STOR
     mDrawnOnce = false;
     mGoToTreeNow = false;
     mPurchasedFullVersion = false;
-    mTrialLockedWhenStoreOpened = mApp->IsTrialStageLocked();
 }
 
 //0x48A610 and 0x48A630
@@ -144,10 +143,6 @@ StoreItem StoreScreen::GetStoreItemType(int theSpotIndex)
 
     if (mPage < NUM_STORE_PAGES && theSpotIndex < MAX_PAGE_SPOTS)
     {
-        if (mPage == STORE_PAGE_SLOT_UPGRADES && theSpotIndex == 6 && mApp->IsTrialStageLocked())
-        {
-            return STORE_ITEM_PVZ;
-        }
         return gStoreItemSpots[mPage][theSpotIndex];
     }
 
@@ -158,13 +153,7 @@ StoreItem StoreScreen::GetStoreItemType(int theSpotIndex)
 //0x48A8D0
 bool StoreScreen::IsFullVersionOnly(StoreItem theStoreItem)
 {
-    if (!mApp->IsTrialStageLocked())
-        return false;
-
-    if (theStoreItem == STORE_ITEM_PACKET_UPGRADE && mApp->mPlayerInfo->mPurchases[STORE_ITEM_PACKET_UPGRADE] >= 2)
-        return true;
-    
-    return theStoreItem == STORE_ITEM_PLANT_TWINSUNFLOWER;
+    return false;
 }
 
 bool StoreScreen::IsPottedPlant(StoreItem theStoreItem)
@@ -217,15 +206,14 @@ bool StoreScreen::IsItemUnavailable(StoreItem theStoreItem)
     if (mApp->HasFinishedAdventure())
         return true;
 
-    bool aTrialStageLocked = mApp->IsTrialStageLocked();
-    int aCurrentLevel = mApp->mPlayerInfo->mLevel;
+    int aCurrentLevel = mApp->mPlayerInfo->GetLevel();
     if (theStoreItem == STORE_ITEM_ROOF_CLEANER)
     {
-        return aTrialStageLocked || aCurrentLevel < 42;
+        return aCurrentLevel < 42;
     }
     else if (theStoreItem == STORE_ITEM_PLANT_GLOOMSHROOM || theStoreItem == STORE_ITEM_PLANT_CATTAIL)
     {
-        return aTrialStageLocked || aCurrentLevel < 35;
+        return aCurrentLevel < 35;
     }
     else if (theStoreItem == STORE_ITEM_PLANT_SPIKEROCK || theStoreItem == STORE_ITEM_PLANT_GOLD_MAGNET)
     {
@@ -241,15 +229,15 @@ bool StoreScreen::IsItemUnavailable(StoreItem theStoreItem)
 
     if (theStoreItem == STORE_ITEM_ROOF_CLEANER)
     {
-        return mApp->IsTrialStageLocked() || (!mApp->HasFinishedAdventure() && mApp->mPlayerInfo->GetLevel() < 42);
+        return !mApp->HasFinishedAdventure() && mApp->mPlayerInfo->GetLevel() < 42;
     }
     if (theStoreItem == STORE_ITEM_PLANT_GLOOMSHROOM)
     {
-        return mApp->IsTrialStageLocked() || (!mApp->HasFinishedAdventure() && mApp->mPlayerInfo->GetLevel() < 35);
+        return !mApp->HasFinishedAdventure() && mApp->mPlayerInfo->GetLevel() < 35;
     }
     if (theStoreItem == STORE_ITEM_PLANT_CATTAIL)
     {
-        return mApp->IsTrialStageLocked() || (!mApp->HasFinishedAdventure() && mApp->mPlayerInfo->GetLevel() < 35);
+        return !mApp->HasFinishedAdventure() && mApp->mPlayerInfo->GetLevel() < 35;
     }
     if (theStoreItem == STORE_ITEM_PLANT_SPIKEROCK)
     {
@@ -766,12 +754,6 @@ void StoreScreen::Update()
 
     UpdateMouse();
     // 如果进入商店时为试玩版，而当前为完整版，且可以与按钮进行交互，则可以判断玩家已购买完整版
-    if (CanInteractWithButtons() && mTrialLockedWhenStoreOpened && !mApp->IsTrialStageLocked())
-    {
-        mPurchasedFullVersion = true;
-        mResult = Dialog::ID_OK;
-    }
-    else
     {
         Widget::Update();
         MarkDirty();
@@ -809,8 +791,6 @@ void StoreScreen::ButtonPress(int theId)
 //0x48C440
 bool StoreScreen::IsPageShown(StorePages thePage)
 {
-    // 试玩模式下，仅显示默认页
-    if (mApp->IsTrialStageLocked()) return thePage == STORE_PAGE_SLOT_UPGRADES;
     // 一周目完成后，所有页全解锁
     if (mApp->HasFinishedAdventure()) return true;
     // 到达或已通过冒险模式 5-2 关卡时，显示紫卡页

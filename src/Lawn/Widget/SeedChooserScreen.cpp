@@ -324,12 +324,6 @@ bool SeedChooserScreen::SeedNotAllowedToPick(SeedType theSeedType)
 		theSeedType == SEED_TWINSUNFLOWER || theSeedType == SEED_SEASHROOM || theSeedType == SEED_PUFFSHROOM);
 }
 
-//0x484640
-bool SeedChooserScreen::SeedNotAllowedDuringTrial(SeedType theSeedType)
-{
-	return mApp->IsTrialStageLocked() && (theSeedType == SEED_SQUASH || theSeedType == SEED_THREEPEATER);
-}
-
 //0x484690
 void SeedChooserScreen::Draw(Graphics* g)
 {
@@ -391,8 +385,7 @@ void SeedChooserScreen::Draw(Graphics* g)
 			aSeedState != SEED_PACKET_HIDDEN && (aSeedState == SEED_IN_CHOOSER || mBoard->mCutScene->mSeedChoosing))
 		{
 			bool aGrayed = false;
-			if (((SeedNotRecommendedToPick(aSeedType) || SeedNotAllowedToPick(aSeedType)) && aSeedState == SEED_IN_CHOOSER) ||
-				SeedNotAllowedDuringTrial(aSeedType))
+			if ((SeedNotRecommendedToPick(aSeedType) || SeedNotAllowedToPick(aSeedType)) && aSeedState == SEED_IN_CHOOSER)
 				aGrayed = true;
 			
 			int aPosX = aChosenSeed.mX;
@@ -897,10 +890,6 @@ void SeedChooserScreen::ShowToolTip()
 				{
 					mToolTip->SetWarningText("[NOT_ALLOWED_ON_THIS_LEVEL]");
 				}
-				else if (SeedNotAllowedDuringTrial(aSeedType))
-				{
-					mToolTip->SetWarningText("[FULL_VERSION_ONLY]");
-				}
 				else if (aChosenSeed.mSeedState == SEED_IN_BANK && aChosenSeed.mCrazyDavePicked)
 				{
 					mToolTip->SetWarningText("[CRAZY_DAVE_WANTS]");
@@ -1054,23 +1043,6 @@ void SeedChooserScreen::MouseDown(int x, int y, int theClickCount)
 		SeedType aSeedType = SeedHitTest(x, y);
 		if (aSeedType != SEED_NONE && !SeedNotAllowedToPick(aSeedType))
 		{
-			if (SeedNotAllowedDuringTrial(aSeedType))
-			{
-				mApp->PlaySample(Sexy::SOUND_TAP);
-				if (mApp->LawnMessageBox(
-					DIALOG_MESSAGE, 
-					"[GET_FULL_VERSION_TITLE]", 
-					"[GET_FULL_VERSION_BODY]", 
-					"[GET_FULL_VERSION_YES_BUTTON]",
-					"[GET_FULL_VERSION_NO_BUTTON]", 
-					Dialog::BUTTONS_YES_NO
-				) == Dialog::ID_YES)
-				{
-					mApp->DoBackToMain();
-				}
-			}
-			else
-			{
 				ChosenSeed& aChosenSeed = mChosenSeeds[aSeedType];
 				if (aChosenSeed.mSeedState == SEED_IN_BANK)
 				{
@@ -1083,7 +1055,6 @@ void SeedChooserScreen::MouseDown(int x, int y, int theClickCount)
 				}
 				else if (aChosenSeed.mSeedState == SEED_IN_CHOOSER)
 					ClickedSeedInChooser(aChosenSeed);
-			}
 		}
 	}
 }

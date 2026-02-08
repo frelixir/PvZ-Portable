@@ -61,7 +61,7 @@ NewOptionsDialog::NewOptionsDialog(LawnApp* theApp, bool theFromGameSelector) :
     {
         mRestartButton->SetVisible(false);
         mBackToGameButton->SetLabel("[DIALOG_BUTTON_OK]");
-        if (mApp->HasFinishedAdventure() && !mApp->IsTrialStageLocked())
+        if (mApp->HasFinishedAdventure())
         {
             mBackToMainButton->SetLabel("[CREDITS]");
         }

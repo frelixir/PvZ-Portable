@@ -119,8 +119,6 @@ public:
 	bool							mDanceMode;										//+0x8BC
 	bool							mDaisyMode;										//+0x8BD
 	bool							mSukhbirMode;									//+0x8BE
-	TrialType						mTrialType;										//+0x8C0
-	bool							mDebugTrialLocked;								//+0x8C4
 	bool							mMuteSoundsForCutscene;							//+0x8C5
 
 public:
@@ -303,7 +301,6 @@ public:
 	void							LoadGroup(const char* theGroupName, int theGroupAveMsToLoad);
 //	void							TraceLoadGroup(const char* theGroupName, int theGroupTime, int theTotalGroupWeigth, int theTaskWeight);
 	void							CrazyDaveStopSound();
-	/*inline*/ bool					IsTrialStageLocked();
 	/*inline*/ void					FinishZenGardenToturial();
 	bool							UpdatePlayerProfileForFinishingLevel();
 	bool							SaveFileExists();
