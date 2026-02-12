@@ -1,6 +1,7 @@
 #ifndef __LAWN_COMMON_H__
 #define __LAWN_COMMON_H__
 
+#include <ctime>
 #include "../ConstEnums.h"
 #include "graphics/Graphics.h"
 #include "widget//EditWidget.h"
@@ -58,7 +59,6 @@ void						DrawEditBox(Graphics* g, EditWidget* theWidget);
 std::string					GetSavedGameName(GameMode theGameMode, int theProfileId);
 std::string					GetLegacySavedGameName(GameMode theGameMode, int theProfileId);
 int							GetCurrentDaysSince2000();
+int                         GetCurrentDaysSince2000(std::time_t theTime);
 
 #endif
-
-

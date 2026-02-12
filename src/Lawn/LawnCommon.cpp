@@ -1,14 +1,15 @@
-#include <time.h>
+#include <algorithm>
+#include <chrono>
+#include <cctype>
+#include <cstdlib>
+#include <ctime>
 #include "Board.h"
-#include "Plant.h"
 #include "../LawnApp.h"
 #include "LawnCommon.h"
 #include "../Resources.h"
-#include "../GameConstants.h"
 #include "../Sexy.TodLib/TodCommon.h"
 #include "graphics/Font.h"
 #include "widget/Dialog.h"
-#include "misc/SexyMatrix.h"
 #include "widget/Checkbox.h"
 
 int gLawnEditWidgetColors[][4] = {
@@ -127,12 +128,19 @@ std::string GetLegacySavedGameName(GameMode theGameMode, int theProfileId)
     return GetAppDataPath(StrFormat("userdata/game%d_%d.dat", theProfileId, static_cast<int>(theGameMode)));
 }
 
-//0x456980
+// Original version from 0x456980 is modified to C++20 standard
 int GetCurrentDaysSince2000()
 {
-    time_t aNow = time(0);
-    tm aNowTM = *localtime(&aNow);
+    return GetCurrentDaysSince2000(std::time(nullptr));
+}
 
-    int dy = aNowTM.tm_year - 100;
-    return dy * 365 + (dy - 1) / 400 - (dy - 1) / 100 + (dy - 1) / 4 + aNowTM.tm_yday + 1;
+int GetCurrentDaysSince2000(std::time_t theTime)
+{
+    using namespace std::chrono;
+
+    const std::tm aTM = *std::localtime(&theTime);
+    const year_month_day aYMD = year{aTM.tm_year + 1900} / month{static_cast<unsigned>(aTM.tm_mon + 1)} /
+                               day{static_cast<unsigned>(aTM.tm_mday)};
+    // 1-based
+    return static_cast<int>((sys_days{aYMD} - sys_days{2000y / January / 1}).count() + 1);
 }

@@ -3,6 +3,7 @@
 #include "Plant.h"
 #include "Board.h"
 #include "Challenge.h"
+#include "LawnCommon.h"
 #include "ZenGarden.h"
 #include "../LawnApp.h"
 #include "CursorObject.h"
@@ -755,9 +756,7 @@ bool ZenGarden::WasPlantNeedFulfilledToday(PottedPlant* thePottedPlant)
     }
 
     time_t aLastNeedFulfilledTime = (time_t)thePottedPlant->mLastNeedFulfilledTime;
-    tm aNowTM = *localtime(&aNowTime);
-    tm aLastNeedFulfilledTM = *localtime(&aLastNeedFulfilledTime);
-    return aNowTM.tm_year <= aLastNeedFulfilledTM.tm_year && aNowTM.tm_yday <= aLastNeedFulfilledTM.tm_yday;
+    return GetCurrentDaysSince2000(aNowTime) <= GetCurrentDaysSince2000(aLastNeedFulfilledTime);
 }
 
 //0x51E910
@@ -771,9 +770,7 @@ bool ZenGarden::PlantShouldRefreshNeed(PottedPlant* thePottedPlant)
     }
     
     time_t aLastWateredTime = (time_t)thePottedPlant->mLastWateredTime;
-    tm aNowTM = *localtime(&aNowTime);
-    tm aLastWateredTM = *localtime(&aLastWateredTime);
-    return aNowTM.tm_year > aLastWateredTM.tm_year || aNowTM.tm_yday > aLastWateredTM.tm_yday;
+    return GetCurrentDaysSince2000(aNowTime) > GetCurrentDaysSince2000(aLastWateredTime);
 }
 
 // GOTY @Patoke: 0x5292A0
