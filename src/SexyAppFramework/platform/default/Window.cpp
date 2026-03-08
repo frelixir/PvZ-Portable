@@ -40,9 +40,7 @@ void SexyAppBase::MakeWindow()
 {
 	if (mWindow)
 	{
-#if !defined(__IPHONEOS__) && !(defined(__ANDROID__) && !defined(__TERMUX__))
 		SDL_SetWindowFullscreen((SDL_Window*)mWindow, (!mIsWindowed ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0));
-#endif
 	}
 	else
 	{

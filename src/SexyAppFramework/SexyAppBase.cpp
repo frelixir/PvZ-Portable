@@ -155,7 +155,11 @@ SexyAppBase::SexyAppBase()
 	mWidth = 640;
 	mHeight = 480;
 	mFullscreenBits = 16;
+#if defined(__IPHONEOS__) || (defined(__ANDROID__) && !defined(__TERMUX__)) || defined(__SWITCH__) || defined(__3DS__)
+	mIsWindowed = false;
+#else
 	mIsWindowed = true;
+#endif
 	mIsPhysWindowed = true;
 	mFullScreenWindow = false;
 	mPreferredX = -1;
@@ -2168,6 +2172,12 @@ void SexyAppBase::StartCursorThread()
 
 void SexyAppBase::SwitchScreenMode(bool wantWindowed, bool is3d, bool force)
 {
+#if defined(__IPHONEOS__) || (defined(__ANDROID__) && !defined(__TERMUX__)) || defined(__SWITCH__) || defined(__3DS__)
+	// Mobile/console platforms are always fullscreen; skip mode switching entirely.
+	Set3DAcclerated(is3d);
+	return;
+#endif
+
 	if (mForceFullscreen)
 		wantWindowed = false;
 
